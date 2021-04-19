@@ -1,101 +1,7 @@
-<!DOCTYPE html>
-<!-- saved from url=(0141)http://wx.qiandao.name/app/index.php?i=7&c=entry&eid=55&mov=detail&op=dianying&d_id=%2Fm%2FgafiYxH4S0P7TB.html&url=%2Fm%2FgafiYxH4S0P7TB.html -->
-<html style="font-size: 64.6875px;">
-<head lang="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <meta name="author" content="lsl">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="generator" content="webstorm">
-    <!--移动端响应式-->
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-    <!--支持IE的兼容模式-->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--让部分国产浏览器默认采用高速模式渲染页面-->
-    <meta name="renderer" content="webkit">
-    <meta name="referrer" content="no-referrer">
-    <!--页面style css-->
-    <link rel="stylesheet" href="/static/css/weuix.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/li.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/swiper.min.css">
-    <title>{{.Detail.Title}}</title>
-    <!--JQ库-->
-    <script src="/static/js/hm(1).js"></script>
-    <script src="/static/js/zepto.min.js"></script>
-    <script src="/static/js/li.js"></script>
-    <script src="/static/js/swiper.min.js"></script>
-    <style type="text/css">
-        .weui-navigator-list li {
-            font-weight: 500
-        }
-
-        .weui-navigator-list li.weui-state-hover, .weui-navigator-list li.weui-state-active a:after {
-            background-color: none
-        }
-
-        .weui_toast {
-        }
-
-        .yugao {
-            position: absolute;
-            display: block;
-            z-index: 10;
-            width: 16px;
-            height: 16px;
-            top: -4px;
-            right: -4px;
-            background: url(http://wx.qiandao.name/addons/super_mov/style/images/yugao.png) no-repeat;
-        }
-
-        .guanzhu_box {
-            padding: 0.2rem 0rem 0 1.17rem;
-        }
-    </style>
-    <script>
-        $(function () {
-            TagNav('#tagnav', {
-                type: 'scrollToFirst',
-            });
-            $('.weui_tab').tab({
-                defaultIndex: 0,
-                activeClass: 'weui_bar_item_on',
-                onToggle: function (index) {
-                    if (index > 0) {
-                        alert(index)
-                    }
-                }
-            });
-        });
-    </script>
-    <input type="hidden" id="_w_tusk">
-    <style class="mpa-style-fix ImageGatherer">.FotorFrame {
-            position: fixed !important
-        }</style>
-    <style class="mpa-style-fix SideFunctionPanel">.weui-desktop-online-faq__wrp {
-            top: 304px !important;
-            bottom: unset !important
-        }
-
-        .weui-desktop-online-faq__wrp .weui-desktop-online-faq__switch {
-            width: 38px !important
-        }</style>
-</head>
+{{template "layout/header.tpl"}}
 <body mpa-version="7.16.9" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
 <div id="allmap"></div>
-<section class="logo_box clearfix">
-    <div class="fl"><a
-                href="/"><img
-                    class="logo_img" src="/static/img/O4422o9131EZHHCGO1mCmq46Ot96T4.png"></a></div>
-    <div class="sosuo_box fl">
-        <form action="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=56" method="post" role="form">
-            <input class="btn_com btn_sosuo" type="text" placeholder="请输入影视、电视剧关键词、支持拼音" name="key" value="">
-        </form>
-    </div>
-    <div class="fr"><a class="tanchu" href="javascript:void(0)"><em class="jilu"></em></a></div>
-</section>
-
+{{template "top.tpl"}}
 
 <section class="shiping_box">
     <iframe allowFullscreen="true" src="https://z1.m1907.cn/?jx={{.Link}}" width="100%" height="210px" allowTransparency="true" frameborder="0" scrolling="no"></iframe>
@@ -112,24 +18,7 @@
     }
 </style>
 
-<section class="gonggao_box clearfix">
-    <div class="gonggao_box2 clearfix"><span class="gonggao fl">公告</span>
-
-        <div id="gongao" class="fl xianshi" style="width: 80%;height: 27px">
-            <div style="width:100%;height:27px;margin:0 auto;white-space: nowrap;overflow:hidden;" id="scroll_div"
-                 class="scroll_div">
-                <div id="scroll_begin">
-                    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;d_id=%2Fm%2FgafiYxH4S0P7TB.html&amp;url=%2Fm%2FgafiYxH4S0P7TB.html">影片需要加载时间，请耐心等待，播放失败请切换来源</a>
-                </div>
-                <div id="scroll_end">
-                    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;d_id=%2Fm%2FgafiYxH4S0P7TB.html&amp;url=%2Fm%2FgafiYxH4S0P7TB.html">影片需要加载时间，请耐心等待，播放失败请切换来源</a>
-                </div>
-            </div>
-            <script type="text/javascript">ScrollImgLeft();</script>
-        </div>
-
-    </div>
-</section>
+{{template "gonggao.tpl"}}
 <section class="gonggao_box clearfix">
     <div class="gonggao_box2 clearfix">
         <style type="text/css">
@@ -172,13 +61,12 @@
 
 
     <h2 class="sanguo_h2" style="line-height: 0.49rem">
-        <!--<span class="pingfen_y9 fr" style="margin-top: 0px">5.4分</span>-->
-        <a href="javascript:;" class="fr weui-btn weui-btn_mini weui-btn_default" style="color:#18b4ed"
-           id="baocuo"><span class="icon icon-40">报错</span></a>
+        <span class="pingfen_y9 fr" style="margin-top: 0px">{{.Detail.Score}}分</span>
+{{/*        <a href="javascript:;" class="fr weui-btn weui-btn_mini weui-btn_default" style="color:#18b4ed"*/}}
+{{/*           id="baocuo"><span class="icon icon-40">报错</span></a>*/}}
         {{.Detail.Title}} </h2>
     <div class="clearfix">
         <div class="fl xiangqing_box_y9" style="width: 83%">
-            <!-- <p> 2019年 </p> -->
             <p> {{.Detail.Year}}  {{.Detail.Area}}   {{.Detail.Director}}  </p>
             <p> 播放量：11 <span><a href="javascript:;" id="sd3">评论：0条</a></span></p>
 
@@ -203,7 +91,7 @@
         <ul class="clearfix">
             {{range .Links}}
             <li class="on">
-                <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?link={{.Url}}&site={{$.Site}}" style="position: relative;">{{.Num}}</a>
+                <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{.Num}}" style="position: relative;">{{.Num}}</a>
             </li>
             {{end}}
         </ul>
@@ -232,32 +120,7 @@
     <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;d_id=%2Fm%2FgafiYxH4S0P7TB.html&amp;url=%2Fm%2FgafiYxH4S0P7TB.html"><img
                 src="./沉默的证人_files/kefu2.png" width="100%"></a>
 </div>
-<link rel="stylesheet" href="/static/css/qscui.css">
-
-<div class="qsc-toast" id="toast-default2">
-    <div class="toast-backdrop"></div>
-    <div class="toast-dialog">
-        <div class="toast-content"><span></span></div>
-    </div>
-</div>
-<section class="heifeng_p bgfff"></section>
-<footer class="qsc-bar bar-fixed " style="max-width: 6.4rem;margin:0 auto;">
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=60" style="text-decoration: none"
-       class="bar-item  "><i class="icon bar-home "></i>排行</a>
-
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=57" style="text-decoration: none"
-       class="bar-item  "><i class="icon bar-publish"></i>电视</a>
-
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=index" style="text-decoration: none"
-       class="bar-item  active"><i class="new-bar-publish"></i>影院</a>
-
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=56" style="text-decoration: none"
-       class="bar-item  "><i class="icon bar-message"></i>求片</a>
-
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=59" style="text-decoration: none"
-       class="bar-item  "><i class="icon bar-user"></i>我的</a>
-
-</footer>
+{{template "layout/footer.tpl"}}
 <script src="/static/js/jweixin-1.3.2.js"></script>
 <script type="text/javascript">
     window.sysinfo = window.sysinfo || {

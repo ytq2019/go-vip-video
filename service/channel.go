@@ -10,13 +10,13 @@ import (
 
 type channelDataReq struct {
 	url   string
-	count int64
-	start int64
-	tid   int64
-	cid   int64
+	count int
+	start int
+	tid   int
+	cid   int
 }
 
-func ChannelDataService(tid int64, count int64, start int64, cid int64) *channelDataReq {
+func ChannelDataService(tid int, count int, start int, cid int) *channelDataReq {
 	return &channelDataReq{count: count, start: start, tid: tid, cid: cid, url: fmt.Sprintf("https://ios.api.360kan.com/iphone/channel/datas?count=%d&start=%d&tid=%d&cid=%d", count, start, tid, cid)}
 }
 

@@ -1,30 +1,10 @@
-{{template "layout/header.tpl" .}}
-<body style="margin:0 auto" mpa-version="7.16.9" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
+{{template "layout/header.tpl"}}
 {{template "top.tpl"}}
-
 
 <section class="gonggao_box clearfix">
     <div class="swiper-container swiper-container-horizontal">
-        <div class="swiper-wrapper" style="transform: translate3d(-804px, 0px, 0px); transition-duration: 0ms;">
-            <div class="swiper-slide swiper-slide-duplicate swiper-slide-next swiper-slide-duplicate-prev"
-                 data-swiper-slide-index="0" style="width: 402px;">
-                <a href="/">
-                    <img src="/static/img/St8Y04b0Qn3Qq457n77BB47p0q0B58.jpg" style="height:178px;width:100%">
-                </a>
-            </div>
-            <div class="swiper-slide swiper-slide-duplicate-active swiper-slide-prev swiper-slide-duplicate-next"
-                 data-swiper-slide-index="0" style="width: 402px;">
-                <a href="/">
-                    <img src="/static/img/St8Y04b0Qn3Qq457n77BB47p0q0B58.jpg" style="height:178px;width:100%">
-                </a>
-            </div>
+        <div class="swiper-wrapper">
 
-            <div class="swiper-slide swiper-slide-duplicate swiper-slide-active swiper-slide-duplicate-prev"
-                 data-swiper-slide-index="0" style="width: 402px;">
-                <a href="/">
-                    <img src="/static/img/St8Y04b0Qn3Qq457n77BB47p0q0B58.jpg" style="height:178px;width:100%">
-                </a>
-            </div>
         </div>
     </div>
 </section>
@@ -136,98 +116,131 @@
     }
 </script>
 {{template "gonggao.tpl"}}
-{{template "layout/bar.tpl" .}}
-
-
+{{template "layout/bar.tpl"}}
 <section class="tuijian_box">
-    <h2 class="clearfix tuijian bgfff"><em class="dianyin"></em>电影推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying">更多<em
-                    class="more_icon"></em></a>
+    <div class="bgfff shaixuan clearfix">
+        <div class="fl leimu_zui">
+            <a class="on"
+               href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying&amp;rank=rankhot">最近热映</a>
 
-    </h2>
-    <div class="dianying_box  bgfff clearfix">
-        <ul class="clearfix">
-            {{range .dianying}}
-            <li>
-                <a href="/detail/{{.Cat}}/{{.ID}}"><img
-                            lazyload="true"
-                            data-original="{{.Cover}}"></a>
-                <a href="/detail/{{.Cat}}/{{.ID}}"><span
-                            class="biaoti">{{.Title}}</span></a></li>
-            {{end}}
 
-        </ul>
+            <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying&amp;rank=rankpoint">最受好评</a>
+
+        </div>
+        <div class="fr shaixuan_2"><a href="javascript:;" id="shaixuan">条件筛选 <em class="shaixuan_icon"><img
+                            src="/static/img/icon_y4_03.jpg"></em></a></div>
+
     </div>
 
-</section>
+    <div class="lebiao_box bgfff shaixuan" style="display: none">
+        <div class="biao_li leibiao clearfix">
+            <dt><h2 class="leixing"><a
+                            href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying&amp;rank=rankhot">全部</a>
+                </h2></dt>
+            <div style="width: 90%;float: right">
+            </div>
+        </div>
 
-<section class="tuijian_box">
-    <h2 class="clearfix tuijian bgfff"><em class="dianshiju"></em>电视剧推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianshi">更多<em
-                    class="more_icon"></em></a>
-    </h2>
-    <div class="dianying_box  bgfff clearfix">
-        <ul class="clearfix">
 
-
-            {{range .dianshi}}
-                <li>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><img
-                                lazyload="true"
-                                data-original="{{.Cover}}"></a>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><span
-                                class="biaoti">{{.Title}}</span></a></li>
-            {{end}}
-
-        </ul>
     </div>
 
-</section>
-
-<section class="tuijian_box">
-    <h2 class="clearfix tuijian bgfff"><em class="zongyi"></em>综艺推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=zongyi">更多<em
-                    class="more_icon"></em></a>
-    </h2>
-    <div class="dianying_box clearfix bgfff">
+    <div class="dianying_box bgfff clearfix content">
         <ul class="clearfix">
 
-            {{range .zongyi}}
-                <li>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><img
-                                lazyload="true"
-                                data-original="{{.Cover}}"></a>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><span
-                                class="biaoti">{{.Title}}</span></a></li>
-            {{end}}
-
-
         </ul>
+{{/*        <div class="dropload-down">*/}}
+{{/*            <div class="dropload-refresh">↑上拉加载更多</div>*/}}
+{{/*        </div>*/}}
     </div>
-
 </section>
-<section class="tuijian_box">
-    <h2 class="clearfix tuijian bgfff"><em class="dongman"></em>动漫推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dongman">更多<em
-                    class="more_icon"></em></a>
-    </h2>
-    <div class="dianying_box clearfix bgfff">
-        <ul class="clearfix">
+<script src="/static/js/dropload.min.js"></script>
 
-            {{range .dongman}}
-                <li>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><img
-                                lazyload="true"
-                                data-original="{{.Cover}}"></a>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><span
-                                class="biaoti">{{.Title}}</span></a></li>
-            {{end}}
+<script>
+    $(function () {
+        var page = 0;
+        $('.content').dropload({
+            scrollArea: window,
+            domUp: {
+                domClass: 'dropload-up',
+                domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+                domUpdate: '<div class="dropload-update">↑释放更新</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+            },
+            domDown: {
+                domClass: 'dropload-down',
+                domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData: '<div class="dropload-noData">暂无数据</div>'
+            },
 
-        </ul>
-    </div>
-
-</section>
-
+            loadUpFn: function (me) {
+                page++;
+                // 拼接HTML
+                $.ajax({
+                    type: 'GET',
+                    url: '/listData?cat={{.Cat}}',
+                    data: {num: page},
+                    dataType: 'html',
+                    success: function (data) {
+                        if (data) {
+                            $(".content ul").html(data);
+                            // 如果没有数据
+                        } else {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // 插入数据到页面，放到最后面
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 10);
+                    },
+                    error: function (xhr, type) {
+                        alert('加载失败，请重新刷新页面');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            },
+            loadDownFn: function (me) {
+                page++;
+                // 拼接HTML
+                $.ajax({
+                    type: 'GET',
+                    url: '/listData?cat={{.Cat}}',
+                    data: {num: page},
+                    dataType: 'html',
+                    success: function (data) {
+                        if (data) {
+                            $(".content ul").append(data);
+                            // 如果没有数据
+                        } else {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // 插入数据到页面，放到最后面
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 1000);
+                    },
+                    error: function (xhr, type) {
+                        alert('加载失败，请重新刷新页面');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            },
+            threshold: 150
+        });
+    });
+</script>
 <!-- 轮播 效果 JS文件   -->
 <section class="guanyin_box guanyin_box2">
     <div class="meiyou_box">
@@ -249,7 +262,7 @@
     <div class="meiyou_box">
         <p class="zhanshi_p">长按二维码识别</p>
         <div class="dianying_box dianying_box2 clearfix" style="padding: 10%">
-            <img src="/static/img/Y020Bz13IBp35AK0YhkJ5ka5P55B2b.jpg" width="100%">
+            <img src="./list_files/Y020Bz13IBp35AK0YhkJ5ka5P55B2b.jpg" width="100%">
         </div>
         <div class="jilu_box">
 
@@ -312,21 +325,17 @@
     <section class="heifeng_p bgfff" style="margin-top: 5px;margin-right: 8px;margin-left: 8px;">
         免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请联系邮箱157776596@qq.com，我们会及时删除侵权内容，谢谢合作。
     </section>
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=index"><img
-                src="/static/img/kefu2.png" width="100%"></a>
+    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying"><img
+                src="./list_files/kefu2.png" width="100%"></a>
 </div>
-
-{{template "layout/footer.tpl" .}}
-
+{{template "layout/footer.tpl"}}
 <script src="/static/js/jweixin-1.3.2.js"></script>
-
-
 <script type="text/javascript">
     window.sysinfo = window.sysinfo || {
         "uniacid": 7,
         "acid": "7",
         "siteroot": "http:\/\/wx.qiandao.name\/",
-        "siteurl": "http:\/\/wx.qiandao.name\/app\/index.php?i=7&c=entry&eid=55&op=index",
+        "siteurl": "http:\/\/wx.qiandao.name\/app\/index.php?i=7&c=entry&eid=55&op=dianying",
         "attachurl": "http:\/\/wx.qiandao.name\/attachment\/",
         "cookie": {"pre": "15cc_"},
         "MODULE_URL": "http:\/\/wx.qiandao.name\/addons\/super_mov\/"
@@ -408,6 +417,7 @@
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-
+<div style="display: none">
+</div>
 </body>
 </html>

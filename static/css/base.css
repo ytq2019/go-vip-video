@@ -1,0 +1,39 @@
+body{ min-width:320px; font-family: "Microsoft Yahei",sans-serif; }
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, textarea,tr, th, td, article, aside, footer, header, nav, section,input,time{margin:0;padding:0;border:0;outline:0;font-size:100%;}
+ul,ol,li{list-style:none}
+table{border-collapse:collapse;border-spacing:0;}
+h1,h2,h3,h4,h5,h6,button,input,select,textarea{font-weight:normal}
+input,fieldset{border:none}
+input{vertical-align:middle}
+th,td {padding: 0;}
+a{cursor:pointer;text-decoration:none; color:#FFF;}
+li{list-style:none}
+em,i{font-style:normal}
+*:focus {outline: none}/*去除所有浏览器默认边框*/
+input::-ms-clear{display:none}/*去除IE9以上搜索默认X*/
+input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance: none;}/*去除iPhone按钮样式*/
+html{
+	font-size: 100px;
+}
+/*去掉移动端a标签的点击背景*/
+a{
+ 	-webkit-tap-highlight-color: transparent;  
+    	-webkit-appearance: none;  
+}
+/*清除浮动*/
+.clearfix:after{
+	clear:both;
+	display:block;
+	height:0;
+	content:'.';
+	visibility:hidden;
+}
+
+
+
+
+
+
+
+
+

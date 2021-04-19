@@ -1,9 +1,12 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/patrickmn/go-cache"
 	"go_vip_video/dto"
 	"go_vip_video/service"
+	"go_vip_video/vcache"
 	"strconv"
 )
 
@@ -36,11 +39,7 @@ func (c *DetailController) init() {
 	c.cat = cat
 
 	//获取详情
-	detail, err := service.NewDetail(cat, c.vId).Do()
-	if err != nil {
-		panic(err)
-	}
-	c.detail = detail
+	c.detail = c.getDetail().(*dto.Detail)
 
 	//获取全部站点信息
 	sites := c.getSites()
@@ -52,7 +51,7 @@ func (c *DetailController) init() {
 	}
 	//获取视频链接列表
 	if c.cat != 1 {
-		c.links = c.getLinks()
+		c.links = c.getLinks().([]*dto.Link)
 	}
 	c.num = c.GetString("num", c.links[0].Num)
 
@@ -93,22 +92,26 @@ func (c *DetailController) getSites() []*dto.Site {
 }
 
 //获取剧集信息
-func (c *DetailController) getLinks() []*dto.Link {
-	var links []*dto.Link
-	getLink, err := service.NewGetLink(c.detail.Data.Rpt.VideoID, c.cat, c.site)
-	if err != nil {
-		panic(err)
-	}
-	do, err := getLink.Do()
-	if err != nil {
-		panic(err)
-	}
-	linkHtml := do.Data
-	links, err = service.Parse(linkHtml, c.cat)
-	if err != nil {
-		panic(err)
-	}
+func (c *DetailController) getLinks() interface{} {
+	links, found := vcache.GoCache.Get(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.detail.Data.Rpt.VideoID))
+	if !found {
 
+		getLink, err := service.NewGetLink(c.detail.Data.Rpt.VideoID, c.cat, c.site)
+		if err != nil {
+			panic(err)
+		}
+		do, err := getLink.Do()
+		if err != nil {
+			panic(err)
+		}
+		linkHtml := do.Data
+		links, err = service.Parse(linkHtml, c.cat)
+		if err != nil {
+			panic(err)
+		}
+		vcache.GoCache.Set(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.detail.Data.Rpt.VideoID), links, cache.DefaultExpiration)
+
+	}
 	return links
 }
 
@@ -122,4 +125,18 @@ func (c *DetailController) getLinkBySite() string {
 		}
 	}
 	return ""
+}
+
+func (c *DetailController) getDetail() interface{} {
+	var err error
+	detail, found := vcache.GoCache.Get(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId))
+	if !found {
+		detail, err = service.NewDetail(c.cat, c.vId).Do()
+		if err != nil {
+			panic(err)
+		}
+		vcache.GoCache.Set(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId), detail, cache.DefaultExpiration)
+	}
+
+	return detail
 }

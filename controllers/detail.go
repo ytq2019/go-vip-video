@@ -8,15 +8,8 @@ import (
 	"go_vip_video/service"
 	"go_vip_video/vcache"
 	"strconv"
+	"strings"
 )
-
-var lines = []dto.Lines{{
-	Name: "线路一",
-	Url:  "https://z1.m1907.cn/?jx=",
-}, {
-	Name: "线路二",
-	Url:  "https://jx.qiandao.name/pangu/index.php?url=",
-}}
 
 type DetailController struct {
 	beego.Controller
@@ -26,13 +19,15 @@ type DetailController struct {
 	num  string //选中剧集
 	jxID int    //解析id
 
-	detail *dto.Detail //详情
-	sites  []*dto.Site //站点
-	links  []*dto.Link //剧集
+	detail *dto.Detail  //详情
+	sites  []*dto.Site  //站点
+	links  []*dto.Link  //剧集
+	jxApis []*dto.Lines //解析接口
 }
 
 //id+cat+站点+剧集  可以定位到具体url
 func (c *DetailController) init() {
+	c.jxApis = parseJxApi(beego.AppConfig.String("jxapi"))
 	//请求参数
 	c.vId = c.Ctx.Input.Param(":id")
 	cat, _ := strconv.Atoi(c.Ctx.Input.Param(":cat"))
@@ -70,9 +65,9 @@ func (c *DetailController) Get() {
 	c.Data["Sites"] = c.sites
 	c.Data["Num"] = c.num
 	//线路
-	c.Data["JxLines"] = lines
+	c.Data["JxLines"] = c.jxApis
 	c.Data["JxID"] = c.jxID
-	c.Data["JxUrl"] = lines[c.jxID].Url
+	c.Data["JxUrl"] = c.jxApis[c.jxID].Url
 	c.TplName = "detail.tpl"
 }
 
@@ -139,4 +134,17 @@ func (c *DetailController) getDetail() interface{} {
 	}
 
 	return detail
+}
+
+func parseJxApi(jxapi string) []*dto.Lines {
+	jxApis := make([]*dto.Lines, 0)
+	for _, v := range strings.Split(jxapi, "$$$") {
+		info := strings.Split(v, "$$")
+		tmp := &dto.Lines{
+			Name: info[0],
+			Url:  info[1],
+		}
+		jxApis = append(jxApis, tmp)
+	}
+	return jxApis
 }

@@ -5,7 +5,6 @@ import (
 	"go_vip_video/dto"
 	"go_vip_video/service"
 	"strconv"
-	"strings"
 )
 
 var lines = []dto.Lines{{
@@ -52,8 +51,9 @@ func (c *DetailController) init() {
 		c.site = sites[0].Code
 	}
 	//获取视频链接列表
-	c.links = c.getLinks()
-
+	if c.cat != 1 {
+		c.links = c.getLinks()
+	}
 	c.num = c.GetString("num", c.links[0].Num)
 
 	//获取解析id
@@ -81,23 +81,13 @@ func (c *DetailController) Get() {
 func (c *DetailController) getSites() []*dto.Site {
 	var sites []*dto.Site
 
-	if c.cat != 1 {
-		bySite, err := service.NewSite(c.vId, c.cat)
-		if err != nil {
-			panic(err)
-		}
-		sites, err = bySite.Do()
-		if err != nil {
-			panic(err)
-		}
-	} else {
-		for _, v := range c.detail.Data.Sites {
-			tmp := &dto.Site{
-				Code: strings.ReplaceAll(v.Site, "_m", ""),
-				Name: strings.ReplaceAll(v.Site, "_m", ""),
-			}
-			sites = append(sites, tmp)
-		}
+	bySite, err := service.NewSite(c.vId, c.cat)
+	if err != nil {
+		panic(err)
+	}
+	sites, c.links, err = bySite.Do()
+	if err != nil {
+		panic(err)
 	}
 	return sites
 }
@@ -105,28 +95,18 @@ func (c *DetailController) getSites() []*dto.Site {
 //获取剧集信息
 func (c *DetailController) getLinks() []*dto.Link {
 	var links []*dto.Link
-	if c.cat != 1 {
-		getLink, err := service.NewGetLink(c.detail.Data.Rpt.VideoID, c.cat, c.site)
-		if err != nil {
-			panic(err)
-		}
-		do, err := getLink.Do()
-		if err != nil {
-			panic(err)
-		}
-		linkHtml := do.Data
-		links, err = service.Parse(linkHtml, c.cat)
-		if err != nil {
-			panic(err)
-		}
-	} else {
-		for _, v := range c.detail.Data.Sites {
-			tmp := &dto.Link{
-				Url: v.Defaultplaylink,
-				Num: strings.ReplaceAll(v.Site, "_m", ""),
-			}
-			links = append(links, tmp)
-		}
+	getLink, err := service.NewGetLink(c.detail.Data.Rpt.VideoID, c.cat, c.site)
+	if err != nil {
+		panic(err)
+	}
+	do, err := getLink.Do()
+	if err != nil {
+		panic(err)
+	}
+	linkHtml := do.Data
+	links, err = service.Parse(linkHtml, c.cat)
+	if err != nil {
+		panic(err)
 	}
 
 	return links

@@ -44,16 +44,16 @@ func (l *Site) initUrl() error {
 	return nil
 }
 
-func (l *Site) Do() ([]*dto.Site, error) {
+func (l *Site) Do() ([]*dto.Site, []*dto.Link, error) {
 	response, err := http.Get(l.url)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	defer response.Body.Close()
 
 	doc, err := goquery.NewDocumentFromReader(response.Body)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	sites := make([]*dto.Site, 0)
@@ -79,6 +79,32 @@ func (l *Site) Do() ([]*dto.Site, error) {
 		}
 		sites = append(sites, tmp)
 	}
+	links := DianYingLinks(doc)
+	return sites, links, nil
+}
 
-	return sites, nil
+//获取电影播放地址
+func DianYingLinks(doc *goquery.Document) []*dto.Link {
+	links := make([]*dto.Link, 0)
+	//多播放源
+	doc.Find("#js-sitebar .wrap select option").Each(func(i int, s *goquery.Selection) {
+		url, _ := s.Attr("data-url")
+		site, _ := s.Attr("data-site")
+		tmp := &dto.Link{
+			Url: url,
+			Num: site,
+		}
+		links = append(links, tmp)
+	})
+	if len(links) == 0 {
+		class, _ := doc.Find("#js-sitebar .wrap .g-site").Attr("class")
+		num := strings.ReplaceAll(class, "g-site g-site-", "")
+		href, _ := doc.Find(".p-dianying-wrap a").Attr("href")
+		tmp := &dto.Link{
+			Url: href,
+			Num: num,
+		}
+		links = append(links, tmp)
+	}
+	return links
 }

@@ -17,3 +17,8 @@ type Site struct {
 	Code string
 	Name string
 }
+
+type Lines struct {
+	Name string
+	Url  string
+}

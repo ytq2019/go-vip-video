@@ -4,7 +4,8 @@
 {{template "top.tpl"}}
 
 <section class="shiping_box">
-    <iframe allowFullscreen="true" src="https://z1.m1907.cn/?jx={{.Link}}" width="100%" height="210px" allowTransparency="true" frameborder="0" scrolling="no"></iframe>
+    <iframe allowFullscreen="true" src="{{.JxUrl}}{{.Link}}" width="100%" height="210px" allowTransparency="true"
+            frameborder="0" scrolling="no"></iframe>
 </section>
 
 <style type="text/css">
@@ -46,12 +47,11 @@
         </style>
         <span class="gonggao fl">线路</span>
         <div class="weui-flex">
-            <div class="weui-flex__item m3"><a
-                        href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;url=%2Fm%2FgafiYxH4S0P7TB.html&amp;api=1">线路1</a>
-            </div>
-            <div class="weui-flex__item m3"><a
-                        href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;url=%2Fm%2FgafiYxH4S0P7TB.html&amp;api=2">线路2</a>
-            </div>
+            {{range $index, $elem := .JxLines}}
+                <div class="weui-flex__item m3"><a
+                            href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                </div>
+            {{end}}
 
         </div>
     </div>
@@ -62,8 +62,8 @@
 
     <h2 class="sanguo_h2" style="line-height: 0.49rem">
         <span class="pingfen_y9 fr" style="margin-top: 0px">{{.Detail.Score}}分</span>
-{{/*        <a href="javascript:;" class="fr weui-btn weui-btn_mini weui-btn_default" style="color:#18b4ed"*/}}
-{{/*           id="baocuo"><span class="icon icon-40">报错</span></a>*/}}
+        {{/*        <a href="javascript:;" class="fr weui-btn weui-btn_mini weui-btn_default" style="color:#18b4ed"*/}}
+        {{/*           id="baocuo"><span class="icon icon-40">报错</span></a>*/}}
         {{.Detail.Title}} </h2>
     <div class="clearfix">
         <div class="fl xiangqing_box_y9" style="width: 83%">
@@ -90,9 +90,14 @@
     <div class="jishi_box2">
         <ul class="clearfix">
             {{range .Links}}
-            <li class="on">
-                <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{.Num}}" style="position: relative;">{{.Num}}</a>
-            </li>
+                {{if eq .Num $.Num}}
+                    <li class="on">
+                {{else}}
+                    <li>
+                {{end}}
+                <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{.Num}}&jxId={{$.JxID}}"
+                       style="position: relative;">{{.Num}}</a>
+                </li>
             {{end}}
         </ul>
     </div>

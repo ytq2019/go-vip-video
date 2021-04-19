@@ -8,12 +8,21 @@ import (
 	"strings"
 )
 
+var lines = []dto.Lines{{
+	Name: "线路一",
+	Url:  "https://z1.m1907.cn/?jx=",
+}, {
+	Name: "线路二",
+	Url:  "https://jx.qiandao.name/pangu/index.php?url=",
+}}
+
 type DetailController struct {
 	beego.Controller
 	vId  string //视频id
 	cat  int    //视频分类
 	site string //选中站点
 	num  string //选中剧集
+	jxID int    //解析id
 
 	detail *dto.Detail //详情
 	sites  []*dto.Site //站点
@@ -45,8 +54,10 @@ func (c *DetailController) init() {
 	//获取视频链接列表
 	c.links = c.getLinks()
 
-	c.num = c.GetString("num", "")
+	c.num = c.GetString("num", c.links[0].Num)
 
+	//获取解析id
+	c.jxID, _ = c.GetInt("jxId", 0)
 }
 func (c *DetailController) Get() {
 	c.init()
@@ -58,6 +69,11 @@ func (c *DetailController) Get() {
 	c.Data["Site"] = c.site
 	c.Data["Links"] = c.links
 	c.Data["Sites"] = c.sites
+	c.Data["Num"] = c.num
+	//线路
+	c.Data["JxLines"] = lines
+	c.Data["JxID"] = c.jxID
+	c.Data["JxUrl"] = lines[c.jxID].Url
 	c.TplName = "detail.tpl"
 }
 

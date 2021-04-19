@@ -10,4 +10,5 @@ func init() {
 	beego.Router("/listData", &controllers.ListController{}, "get:ListData")
 	beego.Router("/list", &controllers.ListController{}, "get:List")
 	beego.Router("/detail/:cat/:id", &controllers.DetailController{})
+	beego.Router("/search", &controllers.SearchController{}, "post:Search")
 }

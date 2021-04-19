@@ -141,7 +141,7 @@
 
 <section class="tuijian_box">
     <h2 class="clearfix tuijian bgfff"><em class="dianyin"></em>电影推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying">更多<em
+        <a class="fr more" href="/list?cat=1">更多<em
                     class="more_icon"></em></a>
 
     </h2>
@@ -163,7 +163,7 @@
 
 <section class="tuijian_box">
     <h2 class="clearfix tuijian bgfff"><em class="dianshiju"></em>电视剧推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianshi">更多<em
+        <a class="fr more" href="/list?cat=2">更多<em
                     class="more_icon"></em></a>
     </h2>
     <div class="dianying_box  bgfff clearfix">
@@ -186,7 +186,7 @@
 
 <section class="tuijian_box">
     <h2 class="clearfix tuijian bgfff"><em class="zongyi"></em>综艺推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=zongyi">更多<em
+        <a class="fr more" href="/list?cat=3">更多<em
                     class="more_icon"></em></a>
     </h2>
     <div class="dianying_box clearfix bgfff">
@@ -208,7 +208,7 @@
 </section>
 <section class="tuijian_box">
     <h2 class="clearfix tuijian bgfff"><em class="dongman"></em>动漫推荐
-        <a class="fr more" href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dongman">更多<em
+        <a class="fr more" href="/list?cat=4">更多<em
                     class="more_icon"></em></a>
     </h2>
     <div class="dianying_box clearfix bgfff">
@@ -308,13 +308,7 @@
         });
     });
 </script>
-<div class="swiper-container swiper-container-horizontal">
-    <section class="heifeng_p bgfff" style="margin-top: 5px;margin-right: 8px;margin-left: 8px;">
-        免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请联系邮箱157776596@qq.com，我们会及时删除侵权内容，谢谢合作。
-    </section>
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=index"><img
-                src="/static/img/kefu2.png" width="100%"></a>
-</div>
+{{template "layout/copyright.tpl"}}
 
 {{template "layout/footer.tpl" .}}
 

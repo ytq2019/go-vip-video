@@ -321,13 +321,7 @@
         });
     });
 </script>
-<div class="swiper-container swiper-container-horizontal">
-    <section class="heifeng_p bgfff" style="margin-top: 5px;margin-right: 8px;margin-left: 8px;">
-        免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请联系邮箱157776596@qq.com，我们会及时删除侵权内容，谢谢合作。
-    </section>
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying"><img
-                src="./list_files/kefu2.png" width="100%"></a>
-</div>
+{{template "layout/copyright.tpl"}}
 {{template "layout/footer.tpl"}}
 <script src="/static/js/jweixin-1.3.2.js"></script>
 <script type="text/javascript">

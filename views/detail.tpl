@@ -113,13 +113,8 @@
     </div>
 </section>
 
-<div class="swiper-container swiper-container-horizontal">
-    <section class="heifeng_p bgfff" style="margin-top: 5px;margin-right: 8px;margin-left: 8px;">
-        免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请联系邮箱157776596@qq.com，我们会及时删除侵权内容，谢谢合作。
-    </section>
-    <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;d_id=%2Fm%2FgafiYxH4S0P7TB.html&amp;url=%2Fm%2FgafiYxH4S0P7TB.html"><img
-                src="./沉默的证人_files/kefu2.png" width="100%"></a>
-</div>
+{{template "layout/copyright.tpl"}}
+
 {{template "layout/footer.tpl"}}
 <script src="/static/js/jweixin-1.3.2.js"></script>
 <script type="text/javascript">

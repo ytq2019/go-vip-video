@@ -121,10 +121,10 @@
     <div class="bgfff shaixuan clearfix">
         <div class="fl leimu_zui">
             <a class="on"
-               href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying&amp;rank=rankhot">最近热映</a>
+               href="/">最近热映</a>
 
 
-            <a href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying&amp;rank=rankpoint">最受好评</a>
+            <a href="/">最受好评</a>
 
         </div>
         <div class="fr shaixuan_2"><a href="javascript:;" id="shaixuan">条件筛选 <em class="shaixuan_icon"><img
@@ -135,7 +135,7 @@
     <div class="lebiao_box bgfff shaixuan" style="display: none">
         <div class="biao_li leibiao clearfix">
             <dt><h2 class="leixing"><a
-                            href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;op=dianying&amp;rank=rankhot">全部</a>
+                            href="/">全部</a>
                 </h2></dt>
             <div style="width: 90%;float: right">
             </div>

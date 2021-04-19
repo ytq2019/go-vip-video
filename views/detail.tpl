@@ -32,8 +32,12 @@
 
             {{range .Sites}}
                 <div class="weui-flex__item m3">
-                    <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{.Code}}">{{.Name}}</a>
-                </div>
+                    {{if eq $.Site .Name}}
+                    <a style="color:red" href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
+                    {{else}}
+                    <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
+                    {{end}}
+                </div>&nbsp;
             {{end}}
         </div>
     </div>
@@ -48,9 +52,13 @@
         <span class="gonggao fl">线路</span>
         <div class="weui-flex">
             {{range $index, $elem := .JxLines}}
-                <div class="weui-flex__item m3"><a
-                            href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
-                </div>
+                <div class="weui-flex__item m3">
+                    {{if eq $index $.JxID}}
+                    <a style="color:red" href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                    {{else}}
+                    <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                    {{end}}
+                </div>&nbsp;
             {{end}}
 
         </div>
@@ -419,24 +427,5 @@
 
 
 </script>
-<script>;</script>
-<script type="text/javascript" src="./沉默的证人_files/index.php"></script>
-
-<div class="mpa-sc mpa-plugin-article-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-article-gatherer"></div>
-<div class="mpa-sc mpa-plugin-image-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-image-gatherer"></div>
-<div class="mpa-sc mpa-plugin-page-clipper mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-page-clipper"></div>
-<div class="mpa-sc mpa-plugin-text-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-text-gatherer"></div>
-<div class="mpa-sc mpa-plugin-video-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-video-gatherer"></div>
-<div class="mpa-sc mpa-plugin-side-function-panel mpa-new mpa-rootsc" data-z="110" style="display: block;"
-     id="mpa-rootsc-side-function-panel"></div>
-<div class="mpa-sc mpa-plugin-notifier mpa-new mpa-rootsc" data-z="120" style="display: block;"
-     id="mpa-rootsc-notifier"></div>
-<div class="mpa-sc mpa-plugin-notification-manager mpa-new mpa-rootsc" data-z="130" style="display: block;"
-     id="mpa-rootsc-notification-manager"></div>
 </body>
 </html>

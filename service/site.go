@@ -60,10 +60,9 @@ func (l *Site) Do() ([]*dto.Site, []*dto.Link, error) {
 	// Find the review items
 	doc.Find(".cp-sitebar-main option").Each(func(i int, s *goquery.Selection) {
 		site, _ := s.Attr("data-site")
-		text := s.Text()
 		tmp := &dto.Site{
 			Code: site,
-			Name: text,
+			Name: site,
 		}
 
 		sites = append(sites, tmp)
@@ -71,16 +70,25 @@ func (l *Site) Do() ([]*dto.Site, []*dto.Link, error) {
 	//针对一个播放源的情况
 	if len(sites) == 0 {
 		attr, _ := doc.Find(".g-site").Attr("class")
-		text := doc.Find(".g-site").Text()
 		attr = strings.ReplaceAll(attr, "g-site g-site-", "")
 		tmp := &dto.Site{
 			Code: attr,
-			Name: text,
+			Name: attr,
 		}
 		sites = append(sites, tmp)
 	}
 	links := DianYingLinks(doc)
+	siteRouter(links)
 	return sites, links, nil
+}
+
+func siteRouter(sites []*dto.Link) {
+	for k, v := range sites {
+		//首位为风行 排到最后
+		if k == 0 && v.Num == "funshion" {
+			sites[0], sites[len(sites)-1] = sites[len(sites)-1], sites[0]
+		}
+	}
 }
 
 //获取电影播放地址

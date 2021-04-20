@@ -16,7 +16,7 @@ type VData []struct {
 	ID       string      `json:"id,omitempty"`
 	Year     string      `json:"year,omitempty"`
 	Score    string      `json:"score,omitempty"`
-	Upinfo   int         `json:"upinfo,omitempty"`
+	Upinfo   interface{} `json:"upinfo,omitempty"`
 	Finish   bool        `json:"finish,omitempty"`
 	Epiname  string      `json:"epiname,omitempty"`
 	Word     string      `json:"word,omitempty"`
@@ -30,7 +30,7 @@ type VData []struct {
 	Sites    []struct {
 		Name            string        `json:"name"`
 		Site            string        `json:"site"`
-		Upinfo          string        `json:"upinfo"`
+		Upinfo          interface{}   `json:"upinfo"`
 		DefaultPlaylink string        `json:"defaultPlaylink"`
 		Xstm            string        `json:"xstm"`
 		Wheshow         int           `json:"wheshow"`
@@ -52,7 +52,7 @@ type VData []struct {
 		Xstm            string        `json:"xstm"`
 		Site            string        `json:"site"`
 		Name            string        `json:"name"`
-		Upinfo          string        `json:"upinfo"`
+		Upinfo          interface{}   `json:"upinfo"`
 		DefaultPlaylink string        `json:"defaultPlaylink"`
 		Lost            []interface{} `json:"lost"`
 		Quality         []struct {
@@ -64,7 +64,7 @@ type VData []struct {
 		StartSkiptime string `json:"startSkiptime"`
 		EndSkiptime   string `json:"endSkiptime"`
 	} `json:"download,omitempty"`
-	CloudControl  string        `json:"cloudControl,omitempty"`
+	CloudControl  interface{}   `json:"cloudControl,omitempty"`
 	DownloadSites []interface{} `json:"downloadSites,omitempty"`
 	URI           string        `json:"uri"`
 	Duration      string        `json:"duration,omitempty"`

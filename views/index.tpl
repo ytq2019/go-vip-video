@@ -16,10 +16,10 @@
         <ul class="clearfix">
             {{range .dianying}}
             <li>
-                <a href="/detail/{{.Cat}}/{{.ID}}"><img
+                <a href="/detail{{.Href}}"><img
                             lazyload="true"
                             data-original="{{.Cover}}"></a>
-                <a href="/detail/{{.Cat}}/{{.ID}}"><span
+                <a href="/detail{{.Href}}"><span
                             class="biaoti">{{.Title}}</span></a></li>
             {{end}}
 
@@ -39,10 +39,10 @@
 
             {{range .dianshi}}
                 <li>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><img
+                    <a href="/detail{{.Href}}"><img
                                 lazyload="true"
                                 data-original="{{.Cover}}"></a>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><span
+                    <a href="/detail{{.Href}}"><span
                                 class="biaoti">{{.Title}}</span></a></li>
             {{end}}
 
@@ -61,10 +61,10 @@
 
             {{range .zongyi}}
                 <li>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><img
+                    <a href="/detail{{.Href}}"><img
                                 lazyload="true"
                                 data-original="{{.Cover}}"></a>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><span
+                    <a href="/detail{{.Href}}"><span
                                 class="biaoti">{{.Title}}</span></a></li>
             {{end}}
 
@@ -83,10 +83,10 @@
 
             {{range .dongman}}
                 <li>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><img
+                    <a href="/detail{{.Href}}"><img
                                 lazyload="true"
                                 data-original="{{.Cover}}"></a>
-                    <a href="/detail/{{.Cat}}/{{.ID}}"><span
+                    <a href="/detail{{.Href}}"><span
                                 class="biaoti">{{.Title}}</span></a></li>
             {{end}}
 

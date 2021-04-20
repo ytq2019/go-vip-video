@@ -6,10 +6,11 @@ import (
 	"github.com/patrickmn/go-cache"
 	"github.com/prometheus/common/log"
 	"go_vip_video/dto"
+	"go_vip_video/dto/m360k"
+	"go_vip_video/dto/pc"
 	"go_vip_video/models"
 	"go_vip_video/service"
 	"go_vip_video/vcache"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -17,16 +18,16 @@ import (
 type DetailController struct {
 	beego.Controller
 	vId  string //视频id
-	cat  int    //视频分类
+	cat  string //视频分类
 	site string //选中站点
 	num  string //选中剧集
 	jxID int    //解析id
 
-	detail *dto.Detail  //详情
-	sites  []*dto.Site  //站点
-	links  []*dto.Link  //剧集
-	link   string       //当前播放url
-	jxApis []*dto.Lines //解析接口
+	detail *m360k.MDetail  //详情
+	sites  []*dto.Site     //站点
+	links  []*pc.VideoLink //剧集
+	link   string          //当前播放url
+	jxApis []*dto.Lines    //解析接口
 
 	remoteAddr string //请求ip
 }
@@ -35,24 +36,29 @@ type DetailController struct {
 func (c *DetailController) init() {
 	c.jxApis = parseJxApi(beego.AppConfig.String("jxapi"))
 	//请求参数
-	c.vId = c.Ctx.Input.Param(":id")
-	cat, _ := strconv.Atoi(c.Ctx.Input.Param(":cat"))
-	c.cat = cat
+	c.vId = strings.ReplaceAll(c.Ctx.Input.Param(":id"), ".html", "")
+	c.cat = c.Ctx.Input.Param(":cat")
 
 	//获取详情
-	c.detail = c.getDetail().(*dto.Detail)
+	document, err := service.NewDetailDocument(c.cat, c.vId)
+	if err != nil {
+		panic(err)
+	}
+	c.detail = document.GetMDetail()
 
 	//获取全部站点信息
-	sites := c.getSites()
-	c.sites = sites
+	c.sites = document.GetSites()
+
 	c.site = c.GetString("site")
 	//设置默认站点
 	if c.site == "" {
-		c.site = sites[0].Code
+		c.site = c.sites[0].Code
 	}
 	//获取视频链接列表
-	if c.cat != 1 {
-		c.links = c.getLinks().([]*dto.Link)
+	if c.cat != "m" {
+		c.links = c.getLinks().([]*pc.VideoLink)
+	} else {
+		c.links = document.DianYingLinks()
 	}
 	c.num = c.GetString("num", c.links[0].Num)
 
@@ -65,7 +71,7 @@ func (c *DetailController) init() {
 func (c *DetailController) Get() {
 	c.init()
 	c.insert()
-	c.Data["Detail"] = c.detail.Data
+	c.Data["Detail"] = c.detail
 	c.Data["Id"] = c.vId
 	c.Data["Cat"] = c.cat
 	c.Data["Link"] = c.link
@@ -97,24 +103,13 @@ func (c *DetailController) getSites() []*dto.Site {
 
 //获取剧集信息
 func (c *DetailController) getLinks() interface{} {
-	links, found := vcache.GoCache.Get(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.detail.Data.Rpt.VideoID))
+	links, found := vcache.GoCache.Get(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.vId))
 	if !found {
-
-		getLink, err := service.NewGetLink(c.detail.Data.Rpt.VideoID, c.cat, c.site)
+		links, err := service.GetPCLinks(c.site, c.vId, c.cat)
 		if err != nil {
 			panic(err)
 		}
-		do, err := getLink.Do()
-		if err != nil {
-			panic(err)
-		}
-		linkHtml := do.Data
-		links, err = service.Parse(linkHtml, c.cat)
-		if err != nil {
-			panic(err)
-		}
-		vcache.GoCache.Set(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.detail.Data.Rpt.VideoID), links, cache.DefaultExpiration)
-
+		vcache.GoCache.Set(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.vId), links, cache.DefaultExpiration)
 	}
 	return links
 }
@@ -122,24 +117,24 @@ func (c *DetailController) getLinks() interface{} {
 func (c *DetailController) getLinkBySite() string {
 	for _, link := range c.links {
 		if c.num == "" {
-			return link.Url
+			return link.Href
 		}
 		if c.num == link.Num {
-			return link.Url
+			return link.Href
 		}
 	}
 	return ""
 }
 
 func (c *DetailController) getDetail() interface{} {
-	var err error
+	//var err error
 	detail, found := vcache.GoCache.Get(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId))
 	if !found {
-		detail, err = service.NewDetail(c.cat, c.vId).Do()
-		if err != nil {
-			panic(err)
-		}
-		vcache.GoCache.Set(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId), detail, cache.DefaultExpiration)
+		//detail, err = service.NewDetail(c.cat, c.vId).Do()
+		//if err != nil {
+		//	panic(err)
+		//}
+		//vcache.GoCache.Set(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId), detail, cache.DefaultExpiration)
 	}
 
 	return detail
@@ -161,7 +156,7 @@ func parseJxApi(jxapi string) []*dto.Lines {
 func (c *DetailController) insert() {
 	vpr := &models.VideoPlaybackRecord{
 		Uniacid:   0,
-		Title:     c.detail.Data.Title,
+		Title:     c.detail.Title,
 		Time:      time.Now().Unix(),
 		VideoUrl:  c.link,
 		Share:     0,

@@ -13,12 +13,12 @@ import (
 */
 type GetLink struct {
 	id   string
-	cat  int
+	cat  string
 	site string
 	url  string
 }
 
-func NewGetLink(id string, cat int, site string) (*GetLink, error) {
+func NewGetLink(id string, cat string, site string) (*GetLink, error) {
 	links := &GetLink{id: id, cat: cat, site: site}
 	if err := links.initUrl(); err != nil {
 		return nil, err
@@ -28,14 +28,14 @@ func NewGetLink(id string, cat int, site string) (*GetLink, error) {
 
 func (l *GetLink) initUrl() error {
 	switch l.cat {
-	case 2:
-		l.url = fmt.Sprintf("http://m.360kan.com/coverpage/getDianshiLinksBySite?id=%s&cat=%d&site=%s", l.id, l.cat, l.site)
-	case 3:
-		l.url = fmt.Sprintf("http://m.360kan.com/coverpage/getZongyiLinksBySite?id=%s&cat=%d&site=%s", l.id, l.cat, l.site)
-	case 4:
-		l.url = fmt.Sprintf("http://m.360kan.com/coverpage/getDongmanLinksBySite?id=%s&cat=%d&site=%s", l.id, l.cat, l.site)
+	case "tv":
+		l.url = fmt.Sprintf("http://m.360kan.com/coverpage/getDianshiLinksBySite?id=%s&cat=2&site=%s", l.id, l.site)
+	case "va":
+		l.url = fmt.Sprintf("http://m.360kan.com/coverpage/getZongyiLinksBySite?id=%s&cat=3&site=%s", l.id, l.site)
+	case "ct":
+		l.url = fmt.Sprintf("http://m.360kan.com/coverpage/getDongmanLinksBySite?id=%s&cat=4&site=%s", l.id, l.site)
 	default:
-		return fmt.Errorf("未知的cat:%d", l.cat)
+		return fmt.Errorf("未知的cat:%s", l.cat)
 	}
 	return nil
 }

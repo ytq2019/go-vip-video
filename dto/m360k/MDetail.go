@@ -5,5 +5,6 @@ type MDetail struct {
 	Title,
 	Year,
 	Area,
+	Desc,
 	Director string
 }

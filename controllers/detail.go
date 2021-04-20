@@ -10,6 +10,7 @@ import (
 	"go_vip_video/dto/pc"
 	"go_vip_video/models"
 	"go_vip_video/service"
+	"go_vip_video/utils"
 	"go_vip_video/vcache"
 	"strings"
 	"time"
@@ -103,13 +104,15 @@ func (c *DetailController) getSites() []*dto.Site {
 
 //获取剧集信息
 func (c *DetailController) getLinks() interface{} {
-	links, found := vcache.GoCache.Get(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.vId))
+	links, found := vcache.GoCache.Get(fmt.Sprintf("links::cat:%s::site:%s::vid:%s", c.cat, c.site, c.vId))
 	if !found {
-		links, err := service.GetPCLinks(c.site, c.vId, c.cat)
+		cat := utils.StrCat2IntCat(c.cat)
+		var err error
+		links, err = service.GetPCLinks(c.site, c.vId, cat)
 		if err != nil {
 			panic(err)
 		}
-		vcache.GoCache.Set(fmt.Sprintf("links::cat:%d::site:%s::vid:%s", c.cat, c.site, c.vId), links, cache.DefaultExpiration)
+		vcache.GoCache.Set(fmt.Sprintf("links::cat:%s::site:%s::vid:%s", c.cat, c.site, c.vId), links, cache.DefaultExpiration)
 	}
 	return links
 }
@@ -124,20 +127,6 @@ func (c *DetailController) getLinkBySite() string {
 		}
 	}
 	return ""
-}
-
-func (c *DetailController) getDetail() interface{} {
-	//var err error
-	detail, found := vcache.GoCache.Get(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId))
-	if !found {
-		//detail, err = service.NewDetail(c.cat, c.vId).Do()
-		//if err != nil {
-		//	panic(err)
-		//}
-		//vcache.GoCache.Set(fmt.Sprintf("detail::cat:%d::vid:%s", c.cat, c.vId), detail, cache.DefaultExpiration)
-	}
-
-	return detail
 }
 
 func parseJxApi(jxapi string) []*dto.Lines {

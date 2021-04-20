@@ -32,7 +32,7 @@ func (c *MainController) Get() {
 		if err != nil {
 
 		}
-		ca.Set("index::dianshi", dianying, cache.DefaultExpiration)
+		ca.Set("index::dianshi", dianshi, cache.DefaultExpiration)
 	}
 
 	zongyi, found := ca.Get("index::zongyi")
@@ -41,7 +41,7 @@ func (c *MainController) Get() {
 		if err != nil {
 
 		}
-		ca.Set("index::zongyi", dianying, cache.DefaultExpiration)
+		ca.Set("index::zongyi", zongyi, cache.DefaultExpiration)
 	}
 	dongman, found := ca.Get("index::dongman")
 	if !found {
@@ -49,7 +49,7 @@ func (c *MainController) Get() {
 		if err != nil {
 
 		}
-		ca.Set("index::dongman", dianying, cache.DefaultExpiration)
+		ca.Set("index::dongman", dongman, cache.DefaultExpiration)
 	}
 	c.Data["dianying"] = dianying.([]*pc.VideoItem)[:21]
 	c.Data["dianshi"] = dianshi.([]*pc.VideoItem)[:21]

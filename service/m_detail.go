@@ -46,6 +46,8 @@ func (d *detailDocument) GetMDetail() *m360k.MDetail {
 		mDetail.Area = strings.ReplaceAll(strings.ReplaceAll(area, " ", ""), "\\n", "")
 		mDetail.Director = strings.ReplaceAll(strings.ReplaceAll(director, " ", ""), "\\n", "")
 	})
+	desc := d.Doc.Find(".cp-describe").Text()
+	mDetail.Desc = strings.ReplaceAll(strings.ReplaceAll(desc, " ", ""), "\\n", "")
 
 	return mDetail
 }
@@ -64,7 +66,6 @@ func (d *detailDocument) GetSites() []*dto.Site {
 	})
 	//针对一个播放源的情况
 	if len(sites) == 0 {
-		fmt.Println(d.Doc.Html())
 		attr, _ := d.Doc.Find(".g-site").Attr("class")
 		attr = strings.ReplaceAll(attr, "g-site g-site-", "")
 		tmp := &dto.Site{

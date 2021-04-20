@@ -33,9 +33,9 @@
             {{range .Sites}}
                 <div class="weui-flex__item m3">
                     {{if eq $.Site .Name}}
-                    <a style="color:red" href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
+                    <a style="color:red" href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
                     {{else}}
-                    <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
+                    <a href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
                     {{end}}
                 </div>&nbsp;
             {{end}}
@@ -54,9 +54,9 @@
             {{range $index, $elem := .JxLines}}
                 <div class="weui-flex__item m3">
                     {{if eq $index $.JxID}}
-                    <a style="color:red" href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                    <a style="color:red" href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
                     {{else}}
-                    <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                    <a href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
                     {{end}}
                 </div>&nbsp;
             {{end}}
@@ -103,7 +103,7 @@
                 {{else}}
                     <li>
                 {{end}}
-                <a href="/detail/{{$.Detail.Cat}}/{{$.Detail.ID}}?site={{$.Site}}&num={{.Num}}&jxId={{$.JxID}}"
+                <a href="/detail/{{$.Cat}}/{{$.Id}}?site={{$.Site}}&num={{.Num}}&jxId={{$.JxID}}"
                        style="position: relative;">{{.Num}}</a>
                 </li>
             {{end}}

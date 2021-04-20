@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
+	"github.com/prometheus/common/log"
 	"go_vip_video/dto"
+	"go_vip_video/models"
 	"go_vip_video/service"
 	"go_vip_video/vcache"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type DetailController struct {
@@ -22,7 +25,10 @@ type DetailController struct {
 	detail *dto.Detail  //详情
 	sites  []*dto.Site  //站点
 	links  []*dto.Link  //剧集
+	link   string       //当前播放url
 	jxApis []*dto.Lines //解析接口
+
+	remoteAddr string //请求ip
 }
 
 //id+cat+站点+剧集  可以定位到具体url
@@ -52,14 +58,17 @@ func (c *DetailController) init() {
 
 	//获取解析id
 	c.jxID, _ = c.GetInt("jxId", 0)
+	//当前播放地址
+	c.link = c.getLinkBySite()
+	c.remoteAddr = c.Ctx.Request.RemoteAddr
 }
 func (c *DetailController) Get() {
 	c.init()
-	link := c.getLinkBySite()
+	c.insert()
 	c.Data["Detail"] = c.detail.Data
 	c.Data["Id"] = c.vId
 	c.Data["Cat"] = c.cat
-	c.Data["Link"] = link
+	c.Data["Link"] = c.link
 	c.Data["Site"] = c.site
 	c.Data["Links"] = c.links
 	c.Data["Sites"] = c.sites
@@ -147,4 +156,24 @@ func parseJxApi(jxapi string) []*dto.Lines {
 		jxApis = append(jxApis, tmp)
 	}
 	return jxApis
+}
+
+func (c *DetailController) insert() {
+	vpr := &models.VideoPlaybackRecord{
+		Uniacid:   0,
+		Title:     c.detail.Data.Title,
+		Time:      time.Now().Unix(),
+		VideoUrl:  c.link,
+		Share:     0,
+		YvideoUrl: "",
+		Type:      c.cat,
+		Index:     0,
+		VideoId:   0,
+		Cat:       c.cat,
+		Site:      c.site,
+		Ip:        c.remoteAddr,
+	}
+	if err := models.GlobalORMDB.Create(vpr).Error; err != nil {
+		log.Error("数据入库失败%v", err)
+	}
 }

@@ -3,10 +3,12 @@ package service
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/patrickmn/go-cache"
 	"go_vip_video/dto"
 	"go_vip_video/dto/m360k"
 	"go_vip_video/dto/pc"
 	"go_vip_video/utils"
+	"go_vip_video/vcache"
 	"strings"
 )
 
@@ -17,14 +19,23 @@ type detailDocument struct {
 
 //http://m.360kan.com/tv/RbhvcH7lSmHrMH.html
 func NewDetailDocument(cat, id string) (*detailDocument, error) {
+	//缓存doc
 	url := fmt.Sprintf("http://m.360kan.com/%s/%s.html", cat, id)
-	resp, err := utils.HttpGet(url)
-	if err != nil {
-		return nil, err
-	}
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
-	if err != nil {
-		return nil, err
+	ca := vcache.GoCache
+	dc, found := ca.Get(url)
+	var doc *goquery.Document
+	if !found {
+		resp, err := utils.HttpGet(url)
+		if err != nil {
+			return nil, err
+		}
+		doc, err = goquery.NewDocumentFromReader(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		ca.Set(url, doc, cache.DefaultExpiration)
+	} else {
+		doc = dc.(*goquery.Document)
 	}
 	return &detailDocument{
 		Doc: doc,
@@ -73,6 +84,11 @@ func (d *detailDocument) GetSites() []*dto.Site {
 			Name: attr,
 		}
 		sites = append(sites, tmp)
+	}
+	for k, v := range sites {
+		if v.Code == "funshion" {
+			sites[k], sites[len(sites)-1] = sites[len(sites)-1], sites[k]
+		}
 	}
 	return sites
 }

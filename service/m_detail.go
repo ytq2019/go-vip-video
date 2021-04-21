@@ -120,6 +120,11 @@ func (d *detailDocument) DianYingLinks() []*pc.VideoLink {
 		}
 		links = append(links, tmp)
 	}
+	for k, v := range links {
+		if v.Num == "funshion" {
+			links[k], links[len(links)-1] = links[len(links)-1], links[k]
+		}
+	}
 	return links
 }
 

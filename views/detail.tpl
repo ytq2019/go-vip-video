@@ -20,6 +20,7 @@
 </style>
 
 {{template "gonggao.tpl"}}
+{{if ne .Cat "m"}}
 <section class="gonggao_box clearfix">
     <div class="gonggao_box2 clearfix">
         <style type="text/css">
@@ -43,6 +44,7 @@
         </div>
     </div>
 </section>
+{{end}}
 <section class="gonggao_box clearfix">
     <div class="gonggao_box2 clearfix">
         <style type="text/css">
@@ -91,7 +93,6 @@
 </section>
 <span id="title" class="title"></span>
 
-{{if ne .Cat "m"}}
 <section class="jishi_box_y9 p_r">
     {{if eq $.Cat "va"}}
     <div class="jishi_box3">
@@ -121,7 +122,6 @@
             </ul>
         </div>
 </section>
-{{end}}
 <section class="jianjie_y9 bgfff clearfix">
     <p class="jianjie_y9_p all">{{.Detail.Desc}}</p>
     <!--<a class="zhankai fr change down" href="javascript:;"><em class="zhankai_icon"></em>展开详情</a>-->

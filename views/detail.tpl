@@ -79,7 +79,7 @@
         {{.Detail.Title}} </h2>
     <div class="clearfix">
         <div class="fl xiangqing_box_y9" style="width: 83%">
-            <p> {{.Detail.Year}}  {{.Detail.Area}}   {{.Detail.Director}}  </p>
+            <p>  {{.Detail.Area}}   {{.Detail.Director}}  </p>
             <p> 播放量：11 <span><a href="javascript:;" id="sd3">评论：0条</a></span></p>
 
         </div>
@@ -240,7 +240,7 @@
                 <li class="clearfix"><span class="fr">
 
       <a class="jishu_guankan"
-         href="http://wx.qiandao.name/app/index.php?i=7&amp;c=entry&amp;eid=55&amp;mov=detail&amp;op=dianying&amp;d_id=%2Fm%2FgqPrYxH4Rnr4UR.html&amp;url=%2Fm%2FgqPrYxH4Rnr4UR.html">继续观看<em
+         href="/">继续观看<em
                   class="zhuandao"></em></a></span></li>
 
 
@@ -349,7 +349,7 @@
         });
     });
     $("#shoucang").click(function () {
-        $.get("http://wx.qiandao.name/app/index.php?i=7&c=entry&eid=55&mov=detail&type=shoucang&video_id=http%3A%2F%2Fwx.qiandao.name%2Fapp%2Findex.php%3Fi%3D7%26c%3Dentry%26eid%3D55%26mov%3Ddetail%26op%3Ddianying%26d_id%3D%252Fm%252FgafiYxH4S0P7TB.html%26url%3D%252Fm%252FgafiYxH4S0P7TB.html&title=%E6%B2%89%E9%BB%98%E7%9A%84%E8%AF%81%E4%BA%BA", function (data, status) {
+        $.get("/", function (data, status) {
             if (data.indexOf("取消") != -1) {
                 $("#shoucangicon").css('color', '');
             } else {
@@ -372,7 +372,7 @@
                             return false;
                         }
 
-                        $.post("http://wx.qiandao.name/app/index.php?i=7&c=entry&eid=55&mov=detail&type=comment&video_id=%2Fm%2FgafiYxH4S0P7TB.html&title=%E6%B2%89%E9%BB%98%E7%9A%84%E8%AF%81%E4%BA%BA&content=" + $("#textarea").val(), function (data, status) {
+                        $.post("/" + $("#textarea").val(), function (data, status) {
                             $.toast("留言成功");
                             var data = JSON.parse(data);
 
@@ -415,7 +415,7 @@
     $("#baocuo").click(function () {
         $.confirm("部分影片苹果手机播放失败,请您更换安卓手机重试,恶意报错会被拉黑,您确定该片有问题并通知管理员吗?", "提示", function () {
 
-            $.get("http://wx.qiandao.name/app/index.php?i=7&c=entry&eid=55&mov=detail&type=baocuo&link=http%3A%2F%2Fwww.fun.tv%2Fvplay%2Fg-335679.v-1472783%2F&agent=Mozilla%2F5.0+%28iPhone%3B+CPU+iPhone+OS+13_2_3+like+Mac+OS+X%29+AppleWebKit%2F605.1.15+%28KHTML%2C+like+Gecko%29+Version%2F13.0.3+Mobile%2F15E148+Safari%2F604.1&title=%E6%B2%89%E9%BB%98%E7%9A%84%E8%AF%81%E4%BA%BA", function (data, status) {
+            $.get("/", function (data, status) {
                 $.toast(data);
                 $("#baocuo").hide();
             })

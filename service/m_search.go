@@ -33,6 +33,9 @@ func (s *searchDocument) SearchResult() []*pc.VideoItem {
 
 	//search-item-info
 	s.Doc.Find(".box").Each(func(i int, s *goquery.Selection) {
+		if noresource, _ := s.Find(".noresource").Html(); noresource == "暂无播放源" {
+			return
+		}
 		href, _ := s.Find("h3 a").Attr("href")
 		title := s.Find("h3").Text()
 		cover, _ := s.Find(".img img").Attr("src")

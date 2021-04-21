@@ -12,17 +12,20 @@ import (
 	"go_vip_video/models"
 	"go_vip_video/service"
 	"go_vip_video/utils"
+	"strconv"
 	"strings"
 	"time"
 )
 
 type DetailController struct {
 	beego.Controller
-	vId  string //视频id
-	cat  string //视频分类
-	site string //选中站点
-	num  string //选中剧集
-	jxID int    //解析id
+	vId    string //视频id
+	cat    string //视频分类
+	site   string //选中站点
+	num    string //选中剧集
+	jxID   int    //解析id
+	openId string //微信openID
+	uid    int64  //客户ID
 
 	detail *m360k.MDetail  //详情
 	sites  []*dto.Site     //站点
@@ -35,6 +38,32 @@ type DetailController struct {
 
 //id+cat+站点+剧集  可以定位到具体url
 func (c *DetailController) init() {
+	//获取用户openid
+	sess, _ := common.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
+	if uid := sess.Get("uid"); uid != nil {
+		user := models.User{ID: uid.(int64)}
+		if err := user.LoadById(models.GlobalORMDB); err == nil {
+			c.openId = user.OpenId
+			c.uid = user.ID
+		}
+	}
+	//用户观看次数超出五次 需要登录
+	if c.uid == 0 {
+		feeNumStr := c.Ctx.GetCookie("feeNum")
+		if feeNumStr == "" {
+			c.Ctx.SetCookie("feeNum", fmt.Sprintf("%d", 1), 86400)
+		} else {
+			feeNum, _ := strconv.Atoi(feeNumStr)
+			maxFeeNum, _ := beego.AppConfig.Int("maxfeenum")
+			if feeNum <= maxFeeNum {
+				feeNum++
+				c.Ctx.SetCookie("feeNum", fmt.Sprintf("%d", feeNum), 86400)
+			} else {
+				c.Ctx.Redirect(301, "/user")
+			}
+		}
+	}
+
 	c.jxApis = parseJxApi(beego.AppConfig.String("jxapi"))
 	//请求参数
 	c.vId = strings.ReplaceAll(c.Ctx.Input.Param(":id"), ".html", "")
@@ -156,6 +185,8 @@ func (c *DetailController) insert() {
 		Cat:       c.cat,
 		Site:      c.site,
 		Ip:        c.remoteAddr,
+		Openid:    c.openId,
+		Uid:       c.uid,
 	}
 	if err := models.GlobalORMDB.Create(vpr).Error; err != nil {
 		log.Error("数据入库失败%v", err)

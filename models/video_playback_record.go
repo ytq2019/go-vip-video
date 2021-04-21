@@ -8,7 +8,7 @@ type VideoPlaybackRecord struct {
 	Cat       string `gorm:"column:cat" json:"cat" form:"cat"`
 	Site      string `gorm:"column:site" json:"site" form:"site"`
 	Title     string `gorm:"column:title" json:"title" form:"title"`
-	Uid       string `gorm:"column:uid" json:"uid" form:"uid"`
+	Uid       int64  `gorm:"column:uid" json:"uid" form:"uid"`
 	Openid    string `gorm:"column:openid" json:"openid" form:"openid"`
 	Time      int64  `gorm:"column:time" json:"time" form:"time"`
 	VideoUrl  string `gorm:"column:video_url" json:"video_url" form:"video_url"`

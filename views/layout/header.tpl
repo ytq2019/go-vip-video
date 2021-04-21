@@ -62,8 +62,6 @@
         }
     </style>
     <input type="hidden" id="_w_tusk">
-    <script type="text/javascript"
-            src="chrome-extension://dbjbempljhcmhlfpfacalomonjpalpko/scripts/inspector.js"></script>
     <style class="mpa-style-fix ImageGatherer">.FotorFrame {
             position: fixed !important
         }</style>

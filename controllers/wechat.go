@@ -60,12 +60,12 @@ func searchVideo(msg string) (string, error) {
 		return res, err
 	}
 	vData := document.SearchResult()
-	for _, v := range vData {
+	for _, v := range vData[:6] {
 		res += fmt.Sprintf(`👉 <a href="http://new.qiandao.name/detail%s">%s</a>`, v.Href, v.Title)
 		res += "\r\n"
 	}
 	if res == "" {
-		res += "未找到该影片,有片源后会在第一时间添加至<a href=\"http://new.qiandao.name\">在线影院</a>哦~~"
+		res = `未找到该影片,有片源会在第一时间添加至<a href="http://new.qiandao.name">在线影院</a>哦~~`
 	} else {
 		res += "更多视频请在网页内搜索\r\n"
 		res += "请关注我们公众号：YSZY669"

@@ -145,7 +145,7 @@ func parseJxApi(jxapi string) []*dto.Lines {
 func (c *DetailController) insert() {
 	vpr := &models.VideoPlaybackRecord{
 		Uniacid:   0,
-		Title:     c.detail.Title,
+		Title:     strings.ReplaceAll(c.detail.Title, "\n", ""),
 		Time:      time.Now().Unix(),
 		VideoUrl:  c.link,
 		Share:     0,

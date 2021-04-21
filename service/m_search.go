@@ -5,6 +5,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"go_vip_video/dto/pc"
 	"go_vip_video/utils"
+	"strings"
 )
 
 //http://m.360kan.com/search/index?kw=%E8%B5%98%E5%A9%BF
@@ -38,7 +39,7 @@ func (s *searchDocument) SearchResult() []*pc.VideoItem {
 		tmp := &pc.VideoItem{
 			Href:  href,
 			Cover: cover,
-			Title: title,
+			Title: strings.ReplaceAll(title, "\n", ""),
 		}
 		videoItems = append(videoItems, tmp)
 	})

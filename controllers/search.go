@@ -14,10 +14,13 @@ func (c *SearchController) Search() {
 	if key == "" {
 		panic("key not empty!")
 	}
-	vData, err := service.Search(key)
+	document, err := service.NewSearchDocument(key)
 	if err != nil {
 		panic(err)
 	}
+
+	vData := document.SearchResult()
+
 	c.Data["VData"] = vData
 	c.TplName = "search.tpl"
 }

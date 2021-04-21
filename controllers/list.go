@@ -3,8 +3,10 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/patrickmn/go-cache"
 	"go_vip_video/dto/pc"
 	"go_vip_video/service"
+	"go_vip_video/vcache"
 	"strings"
 )
 
@@ -21,7 +23,7 @@ type ListController struct {
 //cat 1 电影 2 电视 3综艺 4动漫
 func (c *ListController) ListData() {
 	var (
-		vl  []*pc.VideoItem
+		vl  interface{}
 		err error
 	)
 	t := c.GetString("cat", "1")
@@ -30,29 +32,46 @@ func (c *ListController) ListData() {
 		panic(err)
 	}
 
+	ca := vcache.GoCache
+	rank := "rankhot"
+	key := fmt.Sprintf("index:%s::rank:%s::num:%d", t, rank, num)
+
+	var found bool
 	switch t {
 	case "1":
-		vl, err = service.GetPCList("dianying", "rankhot", num)
-		if err != nil {
-			panic(err)
+		if vl, found = ca.Get(key); !found {
+			vl, err = service.GetPCList("dianying", "rankhot", num)
+			if err != nil {
+				panic(err)
+			}
+			ca.Set(key, vl, cache.DefaultExpiration)
 		}
 	case "2":
-		vl, err = service.GetPCList("dianshi", "rankhot", num)
-		if err != nil {
-			panic(err)
+		if vl, found = ca.Get(key); !found {
+			vl, err = service.GetPCList("dianshi", "rankhot", num)
+			if err != nil {
+				panic(err)
+			}
+			ca.Set(key, vl, cache.DefaultExpiration)
 		}
 	case "3":
-		vl, err = service.GetPCList("zongyi", "rankhot", num)
-		if err != nil {
-			panic(err)
+		if vl, found = ca.Get(key); !found {
+			vl, err = service.GetPCList("zongyi", "rankhot", num)
+			if err != nil {
+				panic(err)
+			}
+			ca.Set(key, vl, cache.DefaultExpiration)
 		}
 	case "4":
-		vl, err = service.GetPCList("dongman", "rankhot", num)
-		if err != nil {
-			panic(err)
+		if vl, found = ca.Get(key); !found {
+			vl, err = service.GetPCList("dongman", "rankhot", num)
+			if err != nil {
+				panic(err)
+			}
+			ca.Set(key, vl, cache.DefaultExpiration)
 		}
 	}
-	c.Ctx.WriteString(c.toHtml(vl))
+	c.Ctx.WriteString(c.toHtml(vl.([]*pc.VideoItem)))
 }
 
 func (c *ListController) List() {

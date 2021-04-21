@@ -164,15 +164,13 @@
             <h3>
                 {{.Title}}
             </h3>
-            <p> 更新{{.Total}}集</p>
-            <p> {{.Area}}|{{.Year}}年</p>
             <p></p>
             <p></p>
             <p></p>
             <div class="btns">
 
                 <a class="weui_btn weui_btn_primary weui_btn_inline"
-                   href="/detail/{{.Cat}}/{{.ID}}">
+                   href="/detail{{.Href}}">
                     立即播放
                 </a>
 

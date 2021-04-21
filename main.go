@@ -8,5 +8,7 @@ import (
 
 func main() {
 	common.InitSession()
+	common.InitWechat()
+	common.InitGoCache()
 	beego.Run()
 }

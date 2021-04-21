@@ -34,7 +34,7 @@ func init() {
 func filterFunc(c *context.Context) {
 	// 过滤校验
 	sess, _ := common.GlobalSessions.SessionStart(c.ResponseWriter, c.Request)
-	if userinfo := sess.Get("userinfo"); userinfo == nil {
+	if userinfo := sess.Get("uid"); userinfo == nil {
 		c.Redirect(301, "/oauth")
 	}
 

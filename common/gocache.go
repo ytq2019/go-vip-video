@@ -7,6 +7,6 @@ import (
 
 var GoCache *cache.Cache
 
-func init() {
+func InitGoCache() {
 	GoCache = cache.New(30*time.Minute, 5*time.Minute)
 }

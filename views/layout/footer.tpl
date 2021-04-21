@@ -20,7 +20,7 @@
     <a href="/" style="text-decoration: none"
        class="bar-item  "><i class="icon bar-message"></i>求片</a>
 
-    <a href="/" style="text-decoration: none"
+    <a href="/user" style="text-decoration: none"
        class="bar-item  "><i class="icon bar-user"></i>我的</a>
 
 </footer>

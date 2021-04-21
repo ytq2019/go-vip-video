@@ -3,9 +3,11 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/silenceper/wechat/v2/officialaccount/oauth"
+	"github.com/jinzhu/gorm"
 	"go_vip_video/common"
+	"go_vip_video/models"
 	"log"
+	"time"
 )
 
 type UserController struct {
@@ -35,8 +37,30 @@ func (c *UserController) Login() {
 	if err != nil {
 		panic(err)
 	}
+	//创建账户
+	user := &models.User{}
+	if err = user.LoadByOpenId(models.GlobalORMDB); err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			user = &models.User{
+				Nickname:    info.Nickname,
+				OpenId:      info.OpenID,
+				HeadImgURL:  info.HeadImgURL,
+				Sex:         info.Sex,
+				City:        info.City,
+				Province:    info.Province,
+				Unionid:     info.Unionid,
+				CreatedTime: time.Now().Unix(),
+				UpdatedTime: time.Now().Unix(),
+			}
+			if err := models.GlobalORMDB.Create(user).Error; err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			log.Fatal(err)
+		}
+	}
 
-	if err = sess.Set("userinfo", info); err != nil {
+	if err = sess.Set("uid", user.ID); err != nil {
 		panic(err)
 	}
 	c.Ctx.Redirect(301, "/user")
@@ -45,6 +69,14 @@ func (c *UserController) Login() {
 //用户中心
 func (c *UserController) UserCenter() {
 	sess, _ := common.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
-	c.Data["UserInfo"] = sess.Get("userinfo").(oauth.UserInfo)
+	uid := sess.Get("uid").(int64)
+
+	//根据uid 查找用户信息
+	user := &models.User{ID: uid}
+	if err := user.LoadById(models.GlobalORMDB); err != nil {
+		panic(err)
+	}
+	c.Data["UserInfo"] = user
+
 	c.TplName = "user.tpl"
 }

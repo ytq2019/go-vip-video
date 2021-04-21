@@ -8,9 +8,10 @@ import (
 	"net/http"
 )
 
-func GetPCList(cat string) ([]*pc.VideoItem, error) {
+//rankhot createtime
+func GetPCList(cat string, rank string, pageNo int) ([]*pc.VideoItem, error) {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", fmt.Sprintf("https://www.360kan.com/%s/list?cat=all&year=all&area=all&rank=rankhot", cat), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("https://www.360kan.com/%s/list?cat=all&year=all&area=all&rank=%s&pageno=%d", cat, rank, pageNo), nil)
 	if err != nil {
 		return nil, err
 	}

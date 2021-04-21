@@ -19,7 +19,7 @@ func (c *MainController) Get() {
 	ca := vcache.GoCache
 	dianying, found := ca.Get("index::dianying")
 	if !found {
-		dianying, err = service.GetPCList("dianying")
+		dianying, err = service.GetPCList("dianying", "rankhot", 1)
 		if err != nil {
 
 		}
@@ -28,7 +28,7 @@ func (c *MainController) Get() {
 
 	dianshi, found := ca.Get("index::dianshi")
 	if !found {
-		dianshi, err = service.GetPCList("dianshi")
+		dianshi, err = service.GetPCList("dianshi", "rankhot", 1)
 		if err != nil {
 
 		}
@@ -37,7 +37,7 @@ func (c *MainController) Get() {
 
 	zongyi, found := ca.Get("index::zongyi")
 	if !found {
-		zongyi, err = service.GetPCList("zongyi")
+		zongyi, err = service.GetPCList("zongyi", "rankhot", 1)
 		if err != nil {
 
 		}
@@ -45,7 +45,7 @@ func (c *MainController) Get() {
 	}
 	dongman, found := ca.Get("index::dongman")
 	if !found {
-		dongman, err = service.GetPCList("dongman")
+		dongman, err = service.GetPCList("dongman", "rankhot", 1)
 		if err != nil {
 
 		}

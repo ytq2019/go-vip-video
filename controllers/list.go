@@ -3,8 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"go_vip_video/dto"
+	"go_vip_video/dto/pc"
 	"go_vip_video/service"
+	"strings"
 )
 
 type ListController struct {
@@ -20,35 +21,33 @@ type ListController struct {
 //cat 1 电影 2 电视 3综艺 4动漫
 func (c *ListController) ListData() {
 	var (
-		vl       *dto.ChannelDataResp
-		err      error
-		pageSize = 21
+		vl  []*pc.VideoItem
+		err error
 	)
 	t := c.GetString("cat", "1")
 	num, err := c.GetInt("num", 1)
 	if err != nil {
 		panic(err)
 	}
-	start := (num - 1) * pageSize
 
 	switch t {
 	case "1":
-		vl, err = service.ChannelDataService(22, pageSize, start, 4).Do()
+		vl, err = service.GetPCList("dianying", "rankhot", num)
 		if err != nil {
 			panic(err)
 		}
 	case "2":
-		vl, err = service.ChannelDataService(3, pageSize, start, 3).Do()
+		vl, err = service.GetPCList("dianshi", "rankhot", num)
 		if err != nil {
 			panic(err)
 		}
 	case "3":
-		vl, err = service.ChannelDataService(414, pageSize, start, 5).Do()
+		vl, err = service.GetPCList("zongyi", "rankhot", num)
 		if err != nil {
 			panic(err)
 		}
 	case "4":
-		vl, err = service.ChannelDataService(18, pageSize, start, 6).Do()
+		vl, err = service.GetPCList("dongman", "rankhot", num)
 		if err != nil {
 			panic(err)
 		}
@@ -63,16 +62,16 @@ func (c *ListController) List() {
 	c.TplName = "list.tpl"
 }
 
-func (c *ListController) toHtml(data *dto.ChannelDataResp) string {
+func (c *ListController) toHtml(data []*pc.VideoItem) string {
 	var res string
-	for _, v := range data.Data.Datas {
-		res += c.template(v.ID, v.Cat, v.Cover, v.Title)
+	for _, v := range data {
+		arr := strings.Split(v.Href, "/")
+		res += c.template(arr[2], arr[1], v.Cover, v.Title)
 	}
 	return res
 }
 
-func (c *ListController) template(vId string, cat int, src, text string) string {
-	///detail/{{.Cat}}/{{.ID}}
-	return fmt.Sprintf("<li><a href=\"/detail/%d/%s\"><img src=\"%s\"><span class=\"biaoti\">%s</span></a></li>", cat, vId, src, text)
+func (c *ListController) template(vId string, cat string, src, text string) string {
+	return fmt.Sprintf("<li><a href=\"/detail/%s/%s\"><img src=\"%s\"><span class=\"biaoti\">%s</span></a></li>", cat, vId, src, text)
 
 }

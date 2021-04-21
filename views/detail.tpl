@@ -33,9 +33,10 @@
             {{range .Sites}}
                 <div class="weui-flex__item m3">
                     {{if eq $.Site .Name}}
-                    <a style="color:red" href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
+                        <a style="color:red"
+                           href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
                     {{else}}
-                    <a href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
+                        <a href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
                     {{end}}
                 </div>&nbsp;
             {{end}}
@@ -54,9 +55,10 @@
             {{range $index, $elem := .JxLines}}
                 <div class="weui-flex__item m3">
                     {{if eq $index $.JxID}}
-                    <a style="color:red" href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                        <a style="color:red"
+                           href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
                     {{else}}
-                    <a href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
+                        <a href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
                     {{end}}
                 </div>&nbsp;
             {{end}}
@@ -87,28 +89,36 @@
                         class="icon icon-48" id="shoucangicon" style="font-size: 19px;"></em></a></div>
     </div>
 </section>
-<div class="weui-share" onclick="$(this).fadeOut();$(this).removeClass(&#39;fadeOut&#39;)">
-    <div class="weui-share-box">
-        点击右上角发给朋友<i></i>
-    </div>
-</div>
 <span id="title" class="title"></span>
 
 <section class="jishi_box_y9 p_r">
-    <div class="jishi_box2">
-        <ul class="clearfix">
-            {{range .Links}}
-                {{if eq .Num $.Num}}
-                    <li class="on">
-                {{else}}
-                    <li>
-                {{end}}
-                <a href="/detail/{{$.Cat}}/{{$.Id}}?site={{$.Site}}&num={{.Num}}&jxId={{$.JxID}}"
-                       style="position: relative;">{{.Num}}</a>
-                </li>
+    {{if eq $.Cat "va"}}
+    <div class="jishi_box3">
+        {{else}}
+        <div class="jishi_box2">
             {{end}}
-        </ul>
-    </div>
+
+            <ul class="clearfix">
+                {{range .Links}}
+                    {{if eq .Num $.Num}}
+                        {{if eq $.Cat "va"}}
+                            <li class="on" style="width:30%">
+                        {{else}}
+                            <li class="on">
+                        {{end}}
+                    {{else}}
+                        {{if eq $.Cat "va"}}
+                            <li style="width:30%">
+                        {{else}}
+                            <li>
+                        {{end}}
+                    {{end}}
+                    <a href="/detail/{{$.Cat}}/{{$.Id}}?site={{$.Site}}&num={{.Num}}&jxId={{$.JxID}}"
+                       style="position: relative;">{{.Num}}</a>
+                    </li>
+                {{end}}
+            </ul>
+        </div>
 </section>
 <section class="jianjie_y9 bgfff clearfix">
     <p class="jianjie_y9_p all">{{.Detail.Desc}}</p>

@@ -7,7 +7,6 @@ import (
 	"go_vip_video/dto/pc"
 	"go_vip_video/utils"
 	"io/ioutil"
-	log "log"
 	"strings"
 )
 
@@ -43,18 +42,31 @@ func GetPCLinks(site, id string, cat string) ([]*pc.VideoLink, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(doc.Html())
-	//TODO 综艺未处理
-	videoLinks := make([]*pc.VideoLink, 0)
+
+	var (
+		vLinksMap  = map[string]*pc.VideoLink{}
+		videoLinks = make([]*pc.VideoLink, 0)
+	)
+
 	doc.Find("a").Each(func(i int, s *goquery.Selection) {
-		num, _ := s.Attr("data-num")
-		href, _ := s.Attr("href")
-		tmp := &pc.VideoLink{
-			Href: strings.ReplaceAll(strings.ReplaceAll(href, `\"`, ""), `\`, ""),
-			Num:  strings.ReplaceAll(strings.ReplaceAll(num, `\"`, ""), `\`, ""),
+		num, exists := s.Attr("data-num")
+		if !exists {
+			num = s.Find(".w-newfigure-hint").Text()
 		}
-		videoLinks = append(videoLinks, tmp)
-		log.Println(fmt.Sprintf("num:%s href:%s", tmp.Num, tmp.Href))
+		href, _ := s.Attr("href")
+		num = strings.ReplaceAll(strings.ReplaceAll(num, `\"`, ""), `\`, "")
+		href = strings.ReplaceAll(strings.ReplaceAll(href, `\"`, ""), `\`, "")
+		tmp := &pc.VideoLink{
+			Href: href,
+			Num:  num,
+		}
+		if num != "" {
+			_, ok := vLinksMap[num]
+			if !ok {
+				vLinksMap[num] = tmp
+				videoLinks = append(videoLinks, tmp)
+			}
+		}
 	})
 
 	if len(videoLinks) == 0 {

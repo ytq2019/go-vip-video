@@ -38,7 +38,7 @@ func (c *UserController) Login() {
 		panic(err)
 	}
 	//创建账户
-	user := &models.User{}
+	user := &models.User{OpenId: info.OpenID}
 	if err = user.LoadByOpenId(models.GlobalORMDB); err != nil {
 		if gorm.IsRecordNotFoundError(err) {
 			user = &models.User{

@@ -11,5 +11,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/prometheus/common v0.10.0
+	github.com/silenceper/wechat/v2 v2.0.5
 	github.com/smartystreets/goconvey v1.6.4
 )

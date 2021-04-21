@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
+	"go_vip_video/common"
 	"go_vip_video/dto/pc"
 	"go_vip_video/service"
-	"go_vip_video/vcache"
 	"strings"
 )
 
@@ -32,7 +32,7 @@ func (c *ListController) ListData() {
 		panic(err)
 	}
 
-	ca := vcache.GoCache
+	ca := common.GoCache
 	rank := "rankhot"
 	key := fmt.Sprintf("index:%s::rank:%s::num:%d", t, rank, num)
 

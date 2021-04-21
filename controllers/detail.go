@@ -5,13 +5,13 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
 	"github.com/prometheus/common/log"
+	"go_vip_video/common"
 	"go_vip_video/dto"
 	"go_vip_video/dto/m360k"
 	"go_vip_video/dto/pc"
 	"go_vip_video/models"
 	"go_vip_video/service"
 	"go_vip_video/utils"
-	"go_vip_video/vcache"
 	"strings"
 	"time"
 )
@@ -104,7 +104,7 @@ func (c *DetailController) getSites() []*dto.Site {
 
 //获取剧集信息
 func (c *DetailController) getLinks() interface{} {
-	links, found := vcache.GoCache.Get(fmt.Sprintf("links::cat:%s::site:%s::vid:%s", c.cat, c.site, c.vId))
+	links, found := common.GoCache.Get(fmt.Sprintf("links::cat:%s::site:%s::vid:%s", c.cat, c.site, c.vId))
 	if !found {
 		cat := utils.StrCat2IntCat(c.cat)
 		var err error
@@ -112,7 +112,7 @@ func (c *DetailController) getLinks() interface{} {
 		if err != nil {
 			panic(err)
 		}
-		vcache.GoCache.Set(fmt.Sprintf("links::cat:%s::site:%s::vid:%s", c.cat, c.site, c.vId), links, cache.DefaultExpiration)
+		common.GoCache.Set(fmt.Sprintf("links::cat:%s::site:%s::vid:%s", c.cat, c.site, c.vId), links, cache.DefaultExpiration)
 	}
 	return links
 }

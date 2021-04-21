@@ -3,9 +3,9 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
+	"go_vip_video/common"
 	"go_vip_video/dto/pc"
 	"go_vip_video/service"
-	"go_vip_video/vcache"
 )
 
 type MainController struct {
@@ -16,7 +16,7 @@ func (c *MainController) Get() {
 
 	var err error
 
-	ca := vcache.GoCache
+	ca := common.GoCache
 	dianying, found := ca.Get("index::dianying")
 	if !found {
 		dianying, err = service.GetPCList("dianying", "rankhot", 1)

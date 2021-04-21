@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/prometheus/common/log"
-	"github.com/silenceper/wechat/v2"
-	"github.com/silenceper/wechat/v2/cache"
-	offConfig "github.com/silenceper/wechat/v2/officialaccount/config"
 	"github.com/silenceper/wechat/v2/officialaccount/message"
+	"go_vip_video/common"
 	"go_vip_video/service"
 )
 
@@ -16,18 +14,7 @@ type WechatController struct {
 }
 
 func (c *WechatController) ServeWechat() {
-	wc := wechat.NewWechat()
-	//这里本地内存保存access_token，也可选择redis，memcache或者自定cache
-	memory := cache.NewMemory()
-	cfg := &offConfig.Config{
-		AppID:          "wxcb331d5bde931fd0",
-		AppSecret:      "804d0a9aad76760f5cb54a78970e0dd0",
-		Token:          "xk968Z86P6K8D6y4Z95ZbP6b69qdDb84",
-		EncodingAESKey: "RUjmqAUWm5nh4tj9NJtNK9jTtQ3RSB33Zjss5sArGHR",
-		Cache:          memory,
-	}
-	officialAccount := wc.GetOfficialAccount(cfg)
-
+	officialAccount := common.WechatAccount
 	// 传入request和responseWriter
 	server := officialAccount.GetServer(c.Ctx.Request, c.Ctx.ResponseWriter)
 	//设置接收消息的处理方法
@@ -60,9 +47,12 @@ func searchVideo(msg string) (string, error) {
 		return res, err
 	}
 	vData := document.SearchResult()
-	for _, v := range vData[:6] {
+	for i, v := range vData {
 		res += fmt.Sprintf(`👉 <a href="http://new.qiandao.name/detail%s">%s</a>`, v.Href, v.Title)
 		res += "\r\n"
+		if i > 6 {
+			break
+		}
 	}
 	if res == "" {
 		res = `未找到该影片,有片源会在第一时间添加至<a href="http://new.qiandao.name">在线影院</a>哦~~`

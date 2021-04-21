@@ -39,7 +39,7 @@ func (s *searchDocument) SearchResult() []*pc.VideoItem {
 		tmp := &pc.VideoItem{
 			Href:  href,
 			Cover: cover,
-			Title: strings.ReplaceAll(title, "\n", ""),
+			Title: strings.ReplaceAll(strings.ReplaceAll(title, "\n", ""), "\r", ""),
 		}
 		videoItems = append(videoItems, tmp)
 	})

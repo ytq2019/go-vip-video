@@ -1,4 +1,4 @@
-package vcache
+package common
 
 import (
 	"github.com/patrickmn/go-cache"

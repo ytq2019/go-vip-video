@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/patrickmn/go-cache"
+	"go_vip_video/common"
 	"go_vip_video/dto"
 	"go_vip_video/dto/m360k"
 	"go_vip_video/dto/pc"
 	"go_vip_video/utils"
-	"go_vip_video/vcache"
 	"strings"
 )
 
@@ -21,7 +21,7 @@ type detailDocument struct {
 func NewDetailDocument(cat, id string) (*detailDocument, error) {
 	//缓存doc
 	url := fmt.Sprintf("http://m.360kan.com/%s/%s.html", cat, id)
-	ca := vcache.GoCache
+	ca := common.GoCache
 	dc, found := ca.Get(url)
 	var doc *goquery.Document
 	if !found {
@@ -47,6 +47,7 @@ func NewDetailDocument(cat, id string) (*detailDocument, error) {
 func (d *detailDocument) GetMDetail() *m360k.MDetail {
 	mDetail := &m360k.MDetail{}
 	d.Doc.Find(".cp-info-main").Each(func(i int, s *goquery.Selection) {
+		s.Find("h3 i").Remove()
 		title := s.Find("h3").Text()
 		year := s.Find("p").Eq(3).Text()
 		area := s.Find("p").Eq(2).Text()

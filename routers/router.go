@@ -31,6 +31,8 @@ func init() {
 	beego.Router("/api", &controllers.WechatController{}, "post:ServeWechat")
 	beego.Router("/MP_verify_ewf7R67O1ItR5AVX.txt", &controllers.OauthController{})
 
+	beego.Router("/yutianqi", &controllers.YuController{})
+
 }
 
 /* 定义过滤函数 */

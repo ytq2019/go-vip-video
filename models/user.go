@@ -35,3 +35,11 @@ func (u *User) LoadById(tx *gorm.DB) error {
 func (u *User) FirstOrCreateByOpenId(tx *gorm.DB) error {
 	return tx.Where("open_id = ?", u.OpenId).Attrs(u).FirstOrCreate(u).Error
 }
+
+func (u *User) LoadAll(db *gorm.DB) ([]*User, error) {
+	var users []*User
+	if err := db.Model(u).Order("id DESC").Limit(300).Scan(&users).Error; err != nil {
+		return nil, nil
+	}
+	return users, nil
+}

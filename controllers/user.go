@@ -20,9 +20,6 @@ func (c *UserController) Oauth() {
 }
 
 func (c *UserController) Login() {
-	sess, _ := common.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
-	defer sess.SessionRelease(c.Ctx.ResponseWriter)
-
 	code := c.GetString("code")
 
 	wa := common.WechatAccount
@@ -60,17 +57,13 @@ func (c *UserController) Login() {
 		}
 	}
 
-	if err = sess.Set("uid", user.ID); err != nil {
-		panic(err)
-	}
+	c.SetSession("uid", user.ID)
 	c.Ctx.Redirect(301, "/user")
 }
 
 //用户中心
 func (c *UserController) UserCenter() {
-	sess, _ := common.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
-	uid := sess.Get("uid").(int64)
-
+	uid := c.GetSession("uid").(int64)
 	//根据uid 查找用户信息
 	user := &models.User{ID: uid}
 	if err := user.LoadById(models.GlobalORMDB); err != nil {

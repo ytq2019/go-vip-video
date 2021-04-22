@@ -3,7 +3,6 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
-	"go_vip_video/common"
 	"go_vip_video/controllers"
 )
 
@@ -33,8 +32,7 @@ func init() {
 /* 定义过滤函数 */
 func filterFunc(c *context.Context) {
 	// 过滤校验
-	sess, _ := common.GlobalSessions.SessionStart(c.ResponseWriter, c.Request)
-	if userinfo := sess.Get("uid"); userinfo == nil {
+	if uid := c.Input.Session("uid"); uid == nil {
 		c.Redirect(301, "/oauth")
 	}
 

@@ -31,3 +31,7 @@ func (u *User) LoadByOpenId(tx *gorm.DB) error {
 func (u *User) LoadById(tx *gorm.DB) error {
 	return tx.Model(u).Where("id = ?", u.ID).Scan(u).Error
 }
+
+func (u *User) FirstOrCreateByOpenId(tx *gorm.DB) error {
+	return tx.Where("open_id = ?", u.OpenId).Attrs(u).FirstOrCreate(u).Error
+}

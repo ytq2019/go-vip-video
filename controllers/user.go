@@ -3,7 +3,6 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/jinzhu/gorm"
 	"go_vip_video/common"
 	"go_vip_video/models"
 	"log"
@@ -37,27 +36,42 @@ func (c *UserController) Login() {
 		panic(err)
 	}
 	//创建账户
-	user := &models.User{OpenId: info.OpenID}
-	if err = user.LoadByOpenId(models.GlobalORMDB); err != nil {
-		if gorm.IsRecordNotFoundError(err) {
-			user = &models.User{
-				Nickname:    info.Nickname,
-				OpenId:      info.OpenID,
-				HeadImgURL:  info.HeadImgURL,
-				Sex:         info.Sex,
-				City:        info.City,
-				Province:    info.Province,
-				Unionid:     info.Unionid,
-				CreatedTime: time.Now().Unix(),
-				UpdatedTime: time.Now().Unix(),
-			}
-			if err := models.GlobalORMDB.Create(user).Error; err != nil {
-				log.Fatal(err)
-			}
-		} else {
-			log.Fatal(err)
-		}
+	user := &models.User{
+		Nickname:    info.Nickname,
+		OpenId:      info.OpenID,
+		HeadImgURL:  info.HeadImgURL,
+		Sex:         info.Sex,
+		City:        info.City,
+		Province:    info.Province,
+		Unionid:     info.Unionid,
+		CreatedTime: time.Now().Unix(),
+		UpdatedTime: time.Now().Unix(),
 	}
+
+	if err = user.FirstOrCreateByOpenId(models.GlobalORMDB); err != nil {
+		log.Fatal(err)
+	}
+	//
+	//if err = user.LoadByOpenId(models.GlobalORMDB); err != nil {
+	//	if gorm.IsRecordNotFoundError(err) {
+	//		user = &models.User{
+	//			Nickname:    info.Nickname,
+	//			OpenId:      info.OpenID,
+	//			HeadImgURL:  info.HeadImgURL,
+	//			Sex:         info.Sex,
+	//			City:        info.City,
+	//			Province:    info.Province,
+	//			Unionid:     info.Unionid,
+	//			CreatedTime: time.Now().Unix(),
+	//			UpdatedTime: time.Now().Unix(),
+	//		}
+	//		if err := models.GlobalORMDB.Create(user).Error; err != nil {
+	//			log.Fatal(err)
+	//		}
+	//	} else {
+	//		log.Fatal(err)
+	//	}
+	//}
 
 	c.SetSession("uid", user.ID)
 	c.Ctx.Redirect(301, state)

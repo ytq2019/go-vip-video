@@ -12,7 +12,6 @@ import (
 	"go_vip_video/models"
 	"go_vip_video/service"
 	"go_vip_video/utils"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -39,29 +38,14 @@ type DetailController struct {
 //id+cat+站点+剧集  可以定位到具体url
 func (c *DetailController) init() {
 	//获取用户openid
-	if uid := c.GetSession("uid"); uid != nil {
-		user := models.User{ID: uid.(int64)}
-		if err := user.LoadById(models.GlobalORMDB); err == nil {
-			c.openId = user.OpenId
-			c.uid = user.ID
-		}
+	uid := c.GetSession("uid").(int64)
+	log.Infof("获取到的uid为:%d", uid)
+	user := models.User{ID: uid}
+	if err := user.LoadById(models.GlobalORMDB); err != nil {
+		panic(err)
 	}
-	//用户观看次数超出五次 需要登录
-	if c.uid == 0 {
-		feeNumStr := c.Ctx.GetCookie("feeNum")
-		if feeNumStr == "" {
-			c.Ctx.SetCookie("feeNum", fmt.Sprintf("%d", 1), 86400)
-		} else {
-			feeNum, _ := strconv.Atoi(feeNumStr)
-			maxFeeNum, _ := beego.AppConfig.Int("maxfeenum")
-			if feeNum <= maxFeeNum {
-				feeNum++
-				c.Ctx.SetCookie("feeNum", fmt.Sprintf("%d", feeNum), 86400)
-			} else {
-				c.Ctx.Redirect(301, "/user")
-			}
-		}
-	}
+	c.openId = user.OpenId
+	c.uid = user.ID
 
 	c.jxApis = parseJxApi(beego.AppConfig.String("jxapi"))
 	//请求参数

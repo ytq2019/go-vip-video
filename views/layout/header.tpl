@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/base.css">
     <link rel="stylesheet" type="text/css" href="/static/css/li.css">
     <link rel="stylesheet" href="/static/css/swiper.min.css">
+    <link rel="stylesheet" href="/static/css/weui.css">
     <title>天天影院丨开启免费观影新时代！</title>
     <!--JQ库-->
     <script src="/static/js/hm.js"></script>

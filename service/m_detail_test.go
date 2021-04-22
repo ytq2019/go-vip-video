@@ -12,7 +12,7 @@ func TestNewDetailDocument(t *testing.T) {
 		t.Fail()
 
 	}
-	mDetail, _ := got.GetMDetail()
+	mDetail := got.GetMDetail()
 	sites := got.GetSites()
 	links := got.DianYingLinks()
 

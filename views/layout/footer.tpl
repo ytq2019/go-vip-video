@@ -8,7 +8,7 @@
 </div>
 <section class="heifeng_p bgfff"></section>
 <footer class="qsc-bar bar-fixed " style="max-width: 6.4rem;margin:0 auto;">
-    <a href="/" style="text-decoration: none"
+    <a href="/rank" style="text-decoration: none"
        class="bar-item  "><i class="icon bar-home "></i>排行</a>
 
     <a href="/" style="text-decoration: none"

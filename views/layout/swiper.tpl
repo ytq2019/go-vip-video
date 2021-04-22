@@ -4,20 +4,20 @@
         <div class="swiper-wrapper" style="transform: translate3d(-804px, 0px, 0px); transition-duration: 0ms;">
             <div class="swiper-slide swiper-slide-duplicate swiper-slide-next swiper-slide-duplicate-prev"
                  data-swiper-slide-index="0" style="width: 402px;">
-                <a href="/">
+                <a href="/detail/m/fqLjaRH5RnXASR.html">
                     <img src="/static/img/St8Y04b0Qn3Qq457n77BB47p0q0B58.jpg" style="height:178px;width:100%">
                 </a>
             </div>
             <div class="swiper-slide swiper-slide-duplicate-active swiper-slide-prev swiper-slide-duplicate-next"
                  data-swiper-slide-index="0" style="width: 402px;">
-                <a href="/">
+                <a href="/detail/m/fqLjaRH5RnXASR.html">
                     <img src="/static/img/St8Y04b0Qn3Qq457n77BB47p0q0B58.jpg" style="height:178px;width:100%">
                 </a>
             </div>
 
             <div class="swiper-slide swiper-slide-duplicate swiper-slide-active swiper-slide-duplicate-prev"
                  data-swiper-slide-index="0" style="width: 402px;">
-                <a href="/">
+                <a href="/detail/m/fqLjaRH5RnXASR.html">
                     <img src="/static/img/St8Y04b0Qn3Qq457n77BB47p0q0B58.jpg" style="height:178px;width:100%">
                 </a>
             </div>

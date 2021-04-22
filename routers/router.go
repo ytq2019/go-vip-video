@@ -18,6 +18,8 @@ func init() {
 	beego.Router("/detail/:cat/:id", &controllers.DetailController{})
 	beego.Router("/search", &controllers.SearchController{}, "post:Search")
 
+	beego.Router("/rank", &controllers.RankController{})
+
 	//微信授权
 	beego.Router("/oauth", &controllers.UserController{}, "get:Oauth")
 	//登录

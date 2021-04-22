@@ -19,7 +19,11 @@ func (c *WechatController) ServeWechat() {
 	server := officialAccount.GetServer(c.Ctx.Request, c.Ctx.ResponseWriter)
 	//设置接收消息的处理方法
 	server.SetMessageHandler(func(msg message.MixMessage) *message.Reply {
-		//回复消息：演示回复用户发送的消息
+		//TODO 判断消息类型和消息事件
+		if msg.MsgType == "text" {
+			log.Infof("文本消息")
+		}
+
 		vUrls, err := searchVideo(msg.Content)
 		if err != nil {
 			log.Error(err)

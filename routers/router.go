@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"go_vip_video/controllers"
@@ -8,15 +9,15 @@ import (
 
 func init() {
 	beego.InsertFilter("/user/*", beego.BeforeRouter, filterFunc)
+	beego.InsertFilter("/detail/*", beego.BeforeRouter, filterFunc)
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/listData", &controllers.ListController{}, "get:ListData")
 	beego.Router("/list", &controllers.ListController{}, "get:List")
+
 	beego.Router("/detail/:cat/:id", &controllers.DetailController{})
 	beego.Router("/search", &controllers.SearchController{}, "post:Search")
 
-	//微信公众号
-	beego.Router("/api", &controllers.WechatController{}, "post:ServeWechat")
 	//微信授权
 	beego.Router("/oauth", &controllers.UserController{}, "get:Oauth")
 	//登录
@@ -24,7 +25,8 @@ func init() {
 	//用户中心
 	beego.Router("/user", &controllers.UserController{}, "get:UserCenter")
 
-	//oauth
+	//微信公众号
+	beego.Router("/api", &controllers.WechatController{}, "post:ServeWechat")
 	beego.Router("/MP_verify_ewf7R67O1ItR5AVX.txt", &controllers.OauthController{})
 
 }
@@ -33,7 +35,7 @@ func init() {
 func filterFunc(c *context.Context) {
 	// 过滤校验
 	if uid := c.Input.Session("uid"); uid == nil {
-		c.Redirect(301, "/oauth")
+		c.Redirect(301, fmt.Sprintf("/oauth?toUrl=%s", c.Request.URL))
 	}
 
 }

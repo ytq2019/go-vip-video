@@ -15,12 +15,14 @@ type UserController struct {
 }
 
 func (c *UserController) Oauth() {
-	redirectUrl := `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcb331d5bde931fd0&redirect_uri=http://new.qiandao.name/login&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+	toUrl := c.GetString("toUrl", "/user")
+	redirectUrl := fmt.Sprintf(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcb331d5bde931fd0&redirect_uri=http://new.qiandao.name/login&response_type=code&scope=snsapi_userinfo&state=%s#wechat_redirect`, toUrl)
 	c.Ctx.Redirect(301, redirectUrl)
 }
 
 func (c *UserController) Login() {
 	code := c.GetString("code")
+	state := c.GetString("state")
 
 	wa := common.WechatAccount
 	oa := wa.GetOauth()
@@ -58,7 +60,7 @@ func (c *UserController) Login() {
 	}
 
 	c.SetSession("uid", user.ID)
-	c.Ctx.Redirect(301, "/user")
+	c.Ctx.Redirect(301, state)
 }
 
 //用户中心

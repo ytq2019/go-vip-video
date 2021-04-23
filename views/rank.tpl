@@ -7,7 +7,7 @@
             <a href="/detail{{.Href}}"
                class="weui-media-box weui-media-box_appmsg" style="padding: 10px;!important;">
                 <div class="weui-media-box__hd" style="width: 90px!important;">
-                    <img class="weui-media-box__thumb" alt="" src="{{.Cover}}">
+                    <img class="weui-media-box__thumb" lazyload="true" data-original="{{.Cover}}">
                 </div>
                 <div class="weui-media-box__bd">
                     <h4 class="weui-media-box__title">

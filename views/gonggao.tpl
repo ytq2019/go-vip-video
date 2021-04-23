@@ -1,3 +1,13 @@
+<style type="text/css">
+    #gongao {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #gongao #scroll_begin, #gongao #scroll_end {
+        display: inline
+    }
+</style>
 <script>
     function ScrollImgLeft() {
         var speed = 25;

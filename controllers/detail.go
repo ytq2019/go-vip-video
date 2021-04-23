@@ -38,7 +38,8 @@ type DetailController struct {
 //id+cat+站点+剧集  可以定位到具体url
 func (c *DetailController) init() {
 	//获取用户openid
-	uid := c.GetSession("uid").(int64)
+	//uid := c.GetSession("uid").(int64)
+	var uid int64 = 1
 	log.Infof("获取到的uid为:%d", uid)
 	user := models.User{ID: uid}
 	if err := user.LoadById(models.GlobalORMDB); err != nil {

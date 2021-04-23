@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
 	"go_vip_video/common"
+	"go_vip_video/dto/m360k"
 	"go_vip_video/dto/pc"
 	"go_vip_video/service"
 )
@@ -51,6 +52,19 @@ func (c *MainController) Get() {
 		}
 		ca.Set("index::dongman", dongman, cache.DefaultExpiration)
 	}
+
+	//获取幻灯片
+	swiper, found := ca.Get("index::swiper")
+	if !found {
+		sd, err := service.NewSwiperDocument()
+		if err != nil {
+			panic(err)
+		}
+		swiper = sd.SwiperResult()
+		ca.Set("index::swiper", swiper, cache.DefaultExpiration)
+	}
+
+	c.Data["Swiper"] = swiper.([]*m360k.Swiper)
 	c.Data["dianying"] = dianying.([]*pc.VideoItem)[:21]
 	c.Data["dianshi"] = dianshi.([]*pc.VideoItem)[:21]
 	c.Data["zongyi"] = zongyi.([]*pc.VideoItem)[:21]

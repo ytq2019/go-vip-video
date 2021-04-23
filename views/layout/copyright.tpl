@@ -3,6 +3,6 @@
         免责声明:本站所有视频均来自互联网收集而来，版权归原创者所有，如果侵犯了你的权益，请联系邮箱157776596@qq.com，我们会及时删除侵权内容，谢谢合作。
     </section>
     <a href="/">
-        <img src="/static/img/kefu2.png" width="100%">
+        <img src="/static/img/kefu2.png" width="100%" alt="kefu2">
     </a>
 </div>

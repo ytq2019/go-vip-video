@@ -104,9 +104,26 @@ html{line-height:initial;}
 .guanzhu{ font-size:0.24rem; color:#145f99; display:inline-block; line-height:0.32rem; padding:0 0.07rem; background:#fff100; border-radius:0.05rem; margin-left:0.2rem;}
 .close{ background:url(/static/img/icon_y3_03.jpg) no-repeat; width:0.31rem; height:0.31rem; display:inline-block; background-size:contain;}
 /*  y4   */
-.shaixuan{ padding:0.1rem; box-sizing:border-box;}
-.leimu_zui{ width:3.75rem; height:0.36rem; border:#18b4ed 0.02rem solid; border-radius:0.05rem;}
-.leimu_zui a{ font-size:0.18rem; color:#18b4ed; line-height:0.36rem; display:block; width:1.25rem; float:left; text-align:center;}
+.shaixuan {
+	padding: 0.1rem;
+	box-sizing: border-box;
+}
+
+.leimu_zui {
+	height: 0.36rem;
+	border: #18b4ed 0.02rem solid;
+	border-radius: 0.05rem;
+}
+
+.leimu_zui a {
+	font-size: 0.18rem;
+	color: #18b4ed;
+	line-height: 0.36rem;
+	display: block;
+	width: 1.25rem;
+	float: left;
+	text-align: center;
+}
 .leimu_zui .on,.leimu_zui a:hover{ color:#FFF; background:#18b4ed;}
 .shaixuan_icon{ width:25px; height:25px; display:inline-block; vertical-align:middle; margin-top:-0.07rem; margin-left:0.15rem;}
 .shaixuan_2{ font-size:0.18rem; color:#5d5857; line-height:0.4rem;}

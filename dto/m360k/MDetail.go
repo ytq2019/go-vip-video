@@ -8,3 +8,9 @@ type MDetail struct {
 	Desc,
 	Director string
 }
+
+type Swiper struct {
+	Href,
+	Desc,
+	Img string
+}

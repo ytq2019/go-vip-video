@@ -1,6 +1,4 @@
 {{template "layout/header.tpl"}}
-<body mpa-version="7.16.9" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
-<div id="allmap"></div>
 {{template "top.tpl"}}
 
 <section class="shiping_box">
@@ -8,31 +6,14 @@
             frameborder="0" scrolling="no"></iframe>
 </section>
 
-<style type="text/css">
-    #gongao {
-        width: 100%;
-        overflow: hidden;
-    }
-
-    #gongao #scroll_begin, #gongao #scroll_end {
-        display: inline
-    }
-</style>
-
 {{template "gonggao.tpl"}}
 {{if ne .Cat "m"}}
 <section class="gonggao_box clearfix">
     <div class="gonggao_box2 clearfix">
-        <style type="text/css">
-            .m3 {
-                margin-right: 3px
-            }
-        </style>
         <span class="gonggao fl">来源</span>
         <div class="weui-flex">
-
             {{range .Sites}}
-                <div class="weui-flex__item m3">
+                <div>
                     {{if eq $.Site .Name}}
                         <a style="color:red"
                            href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{.Code}}&num={{$.Num}}&jxId={{$.JxID}}">{{.Name}}</a>
@@ -47,15 +28,10 @@
 {{end}}
 <section class="gonggao_box clearfix">
     <div class="gonggao_box2 clearfix">
-        <style type="text/css">
-            .m3 {
-                margin-right: 3px
-            }
-        </style>
         <span class="gonggao fl">线路</span>
         <div class="weui-flex">
             {{range $index, $elem := .JxLines}}
-                <div class="weui-flex__item m3">
+                <div>
                     {{if eq $index $.JxID}}
                         <a style="color:red"
                            href="/detail/{{$.Cat}}/{{$.Id}}.html?site={{$.Site}}&num={{$.Num}}&jxId={{$index}}">{{$elem.Name}}</a>
@@ -70,7 +46,6 @@
 </section>
 
 <section class="sanguo_box bgfff">
-
 
     <h2 class="sanguo_h2" style="line-height: 0.49rem">
         <span class="pingfen_y9 fr" style="margin-top: 0px">{{.Detail.Score}}分</span>
@@ -127,21 +102,10 @@
     <!--<a class="zhankai fr change down" href="javascript:;"><em class="zhankai_icon"></em>展开详情</a>-->
 </section>
 
-<section class="banner clearfix">
-    <!--   Swiper -->
-    <div class="swiper-container swiper-container-horizontal swiper-container-android">
-        <div class="swiper-wrapper">
-        </div>
-        <!--    Add Pagination -->
-        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
-                    class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div>
-    </div>
-</section>
-
 {{template "layout/copyright.tpl"}}
 
-{{template "layout/footer.tpl"}}
 <script src="/static/js/jweixin-1.3.2.js"></script>
+
 <script type="text/javascript">
     window.sysinfo = window.sysinfo || {
         "uniacid": 7,
@@ -220,17 +184,6 @@
 
     });
 </script>
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?0f5971b1e035e3e5ee01a6816f9db20f";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<div style="display: none">
-</div><!-- 轮播 效果 JS文件   -->
 <section class="guanyin_box guanyin_box2">
     <div class="meiyou_box">
         <p class="zhanshi_p">最近十条观影记录</p>
@@ -254,136 +207,7 @@
     </div>
 </section>
 
-<!-- 轮播 效果 JS文件   -->
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        // autoHeight: true,
-        loop: true,
-        autoplay: 2500,
-    });
-    $("#shaixuan").click(function () {
-        $(".lebiao_box").toggle();
-    });
-    $(".close_a").click(function () {
-        $(".guanzhu_box").hide();
-    });
-
-    $(".tanchu").click(function () {
-        $(".guanyin_box2").show();
-    });
-    $(".fanhui_dianji").click(function () {
-        $(".guanyin_box2").hide();
-    });
-    $(".guanzhu").click(function () {
-        $("#guanzhu").show();
-        $("body").scrollTop(1000);
-    });
-    $(".close_3").click(function () {
-        $("#guanzhu").hide();
-        $("body").scrollTop(0);
-    });
-    $(".close").click(function () {
-        $(".guanzhu_box").hide();
-    });
-    $('#clean').on('click', function () {
-        $.post('./index.php?i=7&c=entry&do=clean&m=super_mov', function (data) {
-            alert(data);
-        })
-    });
-
-</script>
-<style type="text/css">
-    #timer {
-        background: rgba(0, 0, 0, 0.59);
-        padding: 5px;
-        text-align: center;
-        width: 30px;
-        position: absolute;
-        top: 22%;
-        right: 10px;
-        color: #fff;
-        font-size: 16px;
-        border-radius: 50%;
-        height: 30px;
-        line-height: 30px
-    }
-</style>
-<script>
-    $(".tiyan").click(function () {
-        $(".dh").hide();
-        $(".index_ct").show();
-    });
-    $(".change").click(function () {
-        if ($(this).hasClass("down")) {
-            $(this).removeClass("down").addClass("up");
-            $(".all").show();
-            $(".part").hide();
-            $(".up").text('收起详情');
-        } else {
-            $(this).removeClass("up").addClass("down");
-            $(".part").show();
-            $(".all").hide();
-            $(".down").text('展开详情');
-        }
-    });
-    $("#shang").click(function () {
-        var dashang = $("#dashang").html();
-        $.modal({
-            title: '',
-            text: dashang,
-            buttons: [
-                {
-                    text: "打赏", onClick: function () {
-                        var shang_fee = $(".shuru:eq(1)").val();
-                        if (!shang_fee) {
-                            var shang_fee = $(".shang_fee:eq(1)").text();
-                        }
-                        var url = "http://wx.qiandao.name/app/index.php?i=7&c=entry&eid=59&op=pay&type=shang&fee=" + shang_fee;
-                        window.location.href = url;
-                    }
-                },
-                // { text: "微信支付", onClick: function(){ $.alert("你选择了微信支付"); } },
-                {text: "取消", className: "default"},
-            ]
-        });
-    });
-    $("#shoucang").click(function () {
-        $.get("/", function (data, status) {
-            if (data.indexOf("取消") != -1) {
-                $("#shoucangicon").css('color', '');
-            } else {
-                $("#shoucangicon").css('color', '#f31919');
-            }
-            $.toast(data);
-
-        });
-    });
-    $(document).on("click", "#sd3", function () {
-        var message = $("#textarea").val();
-        $.modal({
-            title: "请输入评论内容",
-            text: '<textarea id="textarea" class="weui_textarea" placeholder="点击这里输入评论内容" rows="3" style="background:#fafafc;height:100px"></textarea>',
-            buttons: [
-                {
-                    text: "提交", onClick: function () {
-                        if (!$("#textarea").val()) {
-                            $.toast("请输入您的评论内容", "forbidden");
-                            return false;
-                        }
-
-                        $.post("/" + $("#textarea").val(), function (data, status) {
-                            $.toast("留言成功");
-                            var data = JSON.parse(data);
-
-                        });
-                    }
-                },
-                {text: "取消", className: "default"},
-            ]
-        });
-    });
-
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         nextButton: '.swiper-button-next',
@@ -411,20 +235,5 @@
             + seperator2 + date.getSeconds();
         return currentdate;
     }
-
-    $("#baocuo").click(function () {
-        $.confirm("部分影片苹果手机播放失败,请您更换安卓手机重试,恶意报错会被拉黑,您确定该片有问题并通知管理员吗?", "提示", function () {
-
-            $.get("/", function (data, status) {
-                $.toast(data);
-                $("#baocuo").hide();
-            })
-        }, function () {
-            //取消操作
-        });
-    });
-
-
 </script>
-</body>
-</html>
+{{template "layout/footer.tpl"}}

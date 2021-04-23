@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0064)http://wx.qiandao.name/app/index.php?i=7&c=entry&eid=55&op=index -->
-<html style="font-size: 64.6875px;">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
     <meta name="referrer" content="no-referrer">
     <link rel="stylesheet" href="/static/css/weuix.min.css">
@@ -11,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/li.css">
     <link rel="stylesheet" href="/static/css/swiper.min.css">
     <link rel="stylesheet" href="/static/css/weui.css">
+    <link rel="stylesheet" href="/static/css/qscui.css">
     <title>天天影院丨开启免费观影新时代！</title>
     <!--JQ库-->
     <script src="/static/js/hm.js"></script>
@@ -23,7 +22,7 @@
             document.addEventListener("scroll", lazyload);
         });
         //获取可是区域的高度
-        var viewHeight = document.documentElement.clientHeight;
+        var viewHeight = document.documentElement.clientHeight + 300;
 
         function lazyload() {
             var eles = document.querySelectorAll("img[data-original][lazyload]");
@@ -46,32 +45,8 @@
                 }
             })
         }
-
-
     </script>
-    <style type="text/css">
-        .leimu_zui {
-            width: auto
-        }
-
-        .weui-navigator-list li {
-            font-weight: 500
-        }
-
-        .weui-navigator-list li.weui-state-hover, .weui-navigator-list li.weui-state-active a:after {
-            background-color: none
-        }
-    </style>
-    <input type="hidden" id="_w_tusk">
-    <style class="mpa-style-fix ImageGatherer">.FotorFrame {
-            position: fixed !important
-        }</style>
-    <style class="mpa-style-fix SideFunctionPanel">.weui-desktop-online-faq__wrp {
-            top: 304px !important;
-            bottom: unset !important
-        }
-
-        .weui-desktop-online-faq__wrp .weui-desktop-online-faq__switch {
-            width: 38px !important
-        }</style>
 </head>
+
+<body style="margin:0 auto">
+

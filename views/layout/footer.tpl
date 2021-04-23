@@ -1,12 +1,3 @@
-<link rel="stylesheet" href="/static/css/qscui.css">
-
-<div class="qsc-toast" id="toast-default2">
-    <div class="toast-backdrop"></div>
-    <div class="toast-dialog">
-        <div class="toast-content"><span></span></div>
-    </div>
-</div>
-<section class="heifeng_p bgfff"></section>
 <footer class="qsc-bar bar-fixed " style="max-width: 6.4rem;margin:0 auto;">
     <a href="/rank" style="text-decoration: none"
        class="bar-item  "><i class="icon bar-home "></i>排行</a>
@@ -24,3 +15,45 @@
        class="bar-item  "><i class="icon bar-user"></i>我的</a>
 
 </footer>
+
+<script>
+    var mySwiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        // autoHeight: true,
+        loop: true,
+        autoplay: 2500,
+    })
+    $("#shaixuan").click(function () {
+        $(".lebiao_box").toggle();
+    });
+    $(".close_a").click(function () {
+        $(".guanzhu_box").hide();
+    });
+
+    $(".tanchu").click(function () {
+        $(".guanyin_box2").show();
+    });
+    $(".fanhui_dianji").click(function () {
+        $(".guanyin_box2").hide();
+    });
+    $(".guanzhu").click(function () {
+        $("#guanzhu").show();
+        $("body").scrollTop(1000);
+    });
+    $(".close_3").click(function () {
+        $("#guanzhu").hide();
+        $("body").scrollTop(0);
+    });
+    $(".close").click(function () {
+        $(".guanzhu_box").hide();
+    });
+    $('#clean').on('click', function () {
+        $.post('./index.php?i=7&c=entry&do=clean&m=super_mov', function (data) {
+            alert(data);
+        })
+    });
+    $("#api").html('<iframe allowFullscreen="true" src="" style="display:none"></iframe>');
+</script>
+
+</body>
+</html>

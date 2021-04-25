@@ -90,6 +90,9 @@ func (d *detailDocument) GetSites() []*dto.Site {
 		if v.Code == "funshion" {
 			sites[k], sites[len(sites)-1] = sites[len(sites)-1], sites[k]
 		}
+		if v.Code == "pptv" {
+			sites[0], sites[k] = sites[k], sites[0]
+		}
 	}
 	return sites
 }
@@ -124,6 +127,9 @@ func (d *detailDocument) DianYingLinks() []*pc.VideoLink {
 	for k, v := range links {
 		if v.Num == "funshion" {
 			links[k], links[len(links)-1] = links[len(links)-1], links[k]
+		}
+		if v.Num == "pptv" {
+			links[0], links[k] = links[k], links[0]
 		}
 	}
 	return links

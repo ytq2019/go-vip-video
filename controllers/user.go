@@ -23,6 +23,10 @@ func (c *UserController) Oauth() {
 func (c *UserController) Login() {
 	code := c.GetString("code")
 	state := c.GetString("state")
+	//如果已经登录过了
+	if uid := c.GetSession("uid"); uid != nil {
+		c.Ctx.Redirect(301, state)
+	}
 
 	wa := common.WechatAccount
 	oa := wa.GetOauth()
@@ -57,11 +61,10 @@ func (c *UserController) Login() {
 			log.Fatal(err)
 		}
 	}
-
-	log.Println(fmt.Sprintf("登录成功,id = %d", user.ID))
-
 	c.SetSession("uid", user.ID)
-	c.Ctx.Redirect(301, state)
+
+	log.Println(fmt.Sprintf("登录成功,id = %d,跳转url = %s", user.ID, state))
+	c.Ctx.Redirect(302, state)
 }
 
 //用户中心

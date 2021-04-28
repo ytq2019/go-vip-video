@@ -9,7 +9,7 @@ import (
 
 func init() {
 	beego.InsertFilter("/user/*", beego.BeforeRouter, filterFunc)
-	beego.InsertFilter("/detail/*", beego.BeforeRouter, filterFunc)
+	//beego.InsertFilter("/detail/*", beego.BeforeRouter, filterFunc)
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/listData", &controllers.ListController{}, "get:ListData")
@@ -39,7 +39,7 @@ func init() {
 func filterFunc(c *context.Context) {
 	// 过滤校验
 	if uid := c.Input.Session("uid"); uid == nil {
-		c.Redirect(301, fmt.Sprintf("/oauth?toUrl=%s", c.Request.URL))
+		c.Redirect(302, fmt.Sprintf("/oauth?toUrl=%s", c.Request.URL))
 	}
 
 }

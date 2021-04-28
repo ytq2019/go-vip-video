@@ -36,14 +36,14 @@ type DetailController struct {
 //id+cat+站点+剧集  可以定位到具体url
 func (c *DetailController) init() {
 	//获取用户openid
-	uid := c.GetSession("uid").(int64)
-	log.Infof("获取到的uid为:%d", uid)
-	user := models.User{ID: uid}
-	if err := user.LoadById(models.GlobalORMDB); err != nil {
-		panic(err)
-	}
-	c.openId = user.OpenId
-	c.uid = user.ID
+	//uid := c.GetSession("uid").(int64)
+	//log.Infof("获取到的uid为:%d", uid)
+	//user := models.User{ID: uid}
+	//if err := user.LoadById(models.GlobalORMDB); err != nil {
+	//	panic(err)
+	//}
+	//c.openId = user.OpenId
+	//c.uid = user.ID
 
 	c.jxApis = parseJxApi(beego.AppConfig.String("jxapi"))
 	//请求参数

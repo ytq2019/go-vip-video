@@ -24,7 +24,7 @@ func (c *WechatController) ServeWechat() {
 		if msg.MsgType == "text" {
 			log.Infof("文本消息")
 			if strings.HasPrefix(msg.Content, "搜") {
-				vUrls, err := searchVideo(msg.Content[1:])
+				vUrls, err := searchVideo(string([]rune(msg.Content)[1:]))
 				if err != nil {
 					log.Error(err)
 				}

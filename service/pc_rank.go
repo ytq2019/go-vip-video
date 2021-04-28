@@ -2,13 +2,13 @@ package service
 
 import (
 	"github.com/PuerkitoBio/goquery"
-	"go_vip_video/dto/pc"
+	"go_vip_video/dto"
 	"go_vip_video/utils"
 	"strings"
 )
 
 //https://www.360kan.com/rank/general?from=index_channel%7Crank_index
-func GetPCRank() ([]*pc.RankVideo, error) {
+func GetPCRank() ([]*dto.RankVideo, error) {
 	url := "https://www.360kan.com/rank/general?from=index_channel%7Crank_index"
 	resp, err := utils.HttpGet(url)
 	if err != nil {
@@ -20,7 +20,7 @@ func GetPCRank() ([]*pc.RankVideo, error) {
 		return nil, err
 	}
 
-	videos := make([]*pc.RankVideo, 0)
+	videos := make([]*dto.RankVideo, 0)
 	doc.Find(".m-contentwrap .m-content").Each(func(i int, s *goquery.Selection) {
 		cover, _ := s.Find(".m-item-img a img ").Attr("data-src")
 		href, _ := s.Find(".m-item-img a").Attr("href")
@@ -31,8 +31,8 @@ func GetPCRank() ([]*pc.RankVideo, error) {
 		top := s.Find(".m-rank").Text()
 		pv := s.Find(".m-pv").Text()
 
-		tmp := &pc.RankVideo{
-			VideoItem: pc.VideoItem{
+		tmp := &dto.RankVideo{
+			VideoItem: dto.VideoItem{
 				Href:  href,
 				Cover: cover,
 				Title: title,

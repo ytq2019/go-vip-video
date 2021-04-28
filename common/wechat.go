@@ -9,7 +9,7 @@ import (
 
 var WechatAccount *officialaccount.OfficialAccount
 
-func InitWechat() {
+func initWechat() {
 	wc := wechat.NewWechat()
 	//这里本地内存保存access_token，也可选择redis，memcache或者自定cache
 	memory := cache.NewMemory()

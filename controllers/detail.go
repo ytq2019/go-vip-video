@@ -7,8 +7,6 @@ import (
 	"github.com/prometheus/common/log"
 	"go_vip_video/common"
 	"go_vip_video/dto"
-	"go_vip_video/dto/m360k"
-	"go_vip_video/dto/pc"
 	"go_vip_video/models"
 	"go_vip_video/service"
 	"go_vip_video/utils"
@@ -26,11 +24,11 @@ type DetailController struct {
 	openId string //微信openID
 	uid    int64  //客户ID
 
-	detail *m360k.MDetail  //详情
-	sites  []*dto.Site     //站点
-	links  []*pc.VideoLink //剧集
-	link   string          //当前播放url
-	jxApis []*dto.Lines    //解析接口
+	detail *dto.MDetail     //详情
+	sites  []*dto.Site      //站点
+	links  []*dto.VideoLink //剧集
+	link   string           //当前播放url
+	jxApis []*dto.Lines     //解析接口
 
 	remoteAddr string //请求ip
 }
@@ -69,7 +67,7 @@ func (c *DetailController) init() {
 	}
 	//获取视频链接列表
 	if c.cat != "m" {
-		c.links = c.getLinks().([]*pc.VideoLink)
+		c.links = c.getLinks().([]*dto.VideoLink)
 	} else {
 		c.links = document.DianYingLinks()
 	}
@@ -97,21 +95,6 @@ func (c *DetailController) Get() {
 	c.Data["JxID"] = c.jxID
 	c.Data["JxUrl"] = c.jxApis[c.jxID].Url
 	c.TplName = "detail.tpl"
-}
-
-//获取站点信息
-func (c *DetailController) getSites() []*dto.Site {
-	var sites []*dto.Site
-
-	bySite, err := service.NewSite(c.vId, c.cat)
-	if err != nil {
-		panic(err)
-	}
-	sites, c.links, err = bySite.Do()
-	if err != nil {
-		panic(err)
-	}
-	return sites
 }
 
 //获取剧集信息

@@ -7,6 +7,7 @@ import (
 	"github.com/silenceper/wechat/v2/officialaccount/message"
 	"go_vip_video/common"
 	"go_vip_video/service"
+	"strings"
 )
 
 type WechatController struct {
@@ -22,11 +23,15 @@ func (c *WechatController) ServeWechat() {
 		var text *message.Text
 		if msg.MsgType == "text" {
 			log.Infof("文本消息")
-			vUrls, err := searchVideo(msg.Content)
-			if err != nil {
-				log.Error(err)
+			if strings.HasPrefix(msg.Content, "搜") {
+				vUrls, err := searchVideo(msg.Content[1:])
+				if err != nil {
+					log.Error(err)
+				}
+				text = message.NewText(vUrls)
+			} else {
+				text = message.NewText("如需搜片,请回复搜+影片名称,例如 搜赘婿")
 			}
-			text = message.NewText(vUrls)
 		}
 		return &message.Reply{MsgType: message.MsgTypeText, MsgData: text}
 	})

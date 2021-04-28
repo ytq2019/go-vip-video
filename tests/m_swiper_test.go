@@ -1,13 +1,14 @@
-package service
+package test
 
 import (
 	"fmt"
+	"go_vip_video/service"
 	"testing"
 )
 
 func TestNewSwiperDocument(t *testing.T) {
 
-	got, err := NewSwiperDocument()
+	got, err := service.NewSwiperDocument()
 	if err != nil {
 		t.Fail()
 

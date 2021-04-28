@@ -4,8 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
 	"go_vip_video/common"
-	"go_vip_video/dto/m360k"
-	"go_vip_video/dto/pc"
+	"go_vip_video/dto"
 	"go_vip_video/service"
 )
 
@@ -64,10 +63,10 @@ func (c *MainController) Get() {
 		ca.Set("index::swiper", swiper, cache.DefaultExpiration)
 	}
 
-	c.Data["Swiper"] = swiper.([]*m360k.Swiper)
-	c.Data["dianying"] = dianying.([]*pc.VideoItem)[:21]
-	c.Data["dianshi"] = dianshi.([]*pc.VideoItem)[:21]
-	c.Data["zongyi"] = zongyi.([]*pc.VideoItem)[:21]
-	c.Data["dongman"] = dongman.([]*pc.VideoItem)[:21]
+	c.Data["Swiper"] = swiper.([]*dto.Swiper)
+	c.Data["dianying"] = dianying.([]*dto.VideoItem)[:21]
+	c.Data["dianshi"] = dianshi.([]*dto.VideoItem)[:21]
+	c.Data["zongyi"] = zongyi.([]*dto.VideoItem)[:21]
+	c.Data["dongman"] = dongman.([]*dto.VideoItem)[:21]
 	c.TplName = "index.tpl"
 }

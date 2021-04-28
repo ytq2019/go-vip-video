@@ -6,8 +6,6 @@ import (
 	"github.com/patrickmn/go-cache"
 	"go_vip_video/common"
 	"go_vip_video/dto"
-	"go_vip_video/dto/m360k"
-	"go_vip_video/dto/pc"
 	"go_vip_video/utils"
 	"strings"
 )
@@ -44,8 +42,8 @@ func NewDetailDocument(cat, id string) (*detailDocument, error) {
 	}, nil
 }
 
-func (d *detailDocument) GetMDetail() *m360k.MDetail {
-	mDetail := &m360k.MDetail{}
+func (d *detailDocument) GetMDetail() *dto.MDetail {
+	mDetail := &dto.MDetail{}
 	d.Doc.Find(".cp-info-main").Each(func(i int, s *goquery.Selection) {
 		s.Find("h3 i").Remove()
 		title := s.Find("h3").Text()
@@ -98,17 +96,17 @@ func (d *detailDocument) GetSites() []*dto.Site {
 }
 
 //获取电影播放地址
-func (d *detailDocument) DianYingLinks() []*pc.VideoLink {
+func (d *detailDocument) DianYingLinks() []*dto.VideoLink {
 	// 只获取电影播放地址
 	if d.Cat != "m" {
-		return make([]*pc.VideoLink, 0)
+		return make([]*dto.VideoLink, 0)
 	}
-	links := make([]*pc.VideoLink, 0)
+	links := make([]*dto.VideoLink, 0)
 	//多播放源
 	d.Doc.Find("#js-sitebar .wrap select option").Each(func(i int, s *goquery.Selection) {
 		url, _ := s.Attr("data-url")
 		site, _ := s.Attr("data-site")
-		tmp := &pc.VideoLink{
+		tmp := &dto.VideoLink{
 			Href: url,
 			Num:  site,
 		}
@@ -118,7 +116,7 @@ func (d *detailDocument) DianYingLinks() []*pc.VideoLink {
 		class, _ := d.Doc.Find("#js-sitebar .wrap .g-site").Attr("class")
 		num := strings.ReplaceAll(class, "g-site g-site-", "")
 		href, _ := d.Doc.Find(".p-dianying-wrap a").Attr("href")
-		tmp := &pc.VideoLink{
+		tmp := &dto.VideoLink{
 			Href: href,
 			Num:  num,
 		}
@@ -135,7 +133,7 @@ func (d *detailDocument) DianYingLinks() []*pc.VideoLink {
 	return links
 }
 
-func (d *detailDocument) sortSites(sites []*pc.VideoLink) {
+func (d *detailDocument) sortSites(sites []*dto.VideoLink) {
 	for k, v := range sites {
 		//首位为风行 排到最后
 		if k == 0 && v.Num == "funshion" {

@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/patrickmn/go-cache"
 	"go_vip_video/common"
-	"go_vip_video/dto/pc"
+	"go_vip_video/dto"
 	"go_vip_video/service"
 	"strings"
 )
@@ -71,7 +71,7 @@ func (c *ListController) ListData() {
 			ca.Set(key, vl, cache.DefaultExpiration)
 		}
 	}
-	c.Ctx.WriteString(c.toHtml(vl.([]*pc.VideoItem)))
+	c.Ctx.WriteString(c.toHtml(vl.([]*dto.VideoItem)))
 }
 
 func (c *ListController) List() {
@@ -81,7 +81,7 @@ func (c *ListController) List() {
 	c.TplName = "list.tpl"
 }
 
-func (c *ListController) toHtml(data []*pc.VideoItem) string {
+func (c *ListController) toHtml(data []*dto.VideoItem) string {
 	var res string
 	for _, v := range data {
 		arr := strings.Split(v.Href, "/")

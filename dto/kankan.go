@@ -1,4 +1,29 @@
-package pc
+package dto
+
+type MDetail struct {
+	Score,
+	Title,
+	Year,
+	Area,
+	Desc,
+	Director string
+}
+
+type Swiper struct {
+	Href,
+	Desc,
+	Img string
+}
+
+type Site struct {
+	Code string
+	Name string
+}
+
+type Lines struct {
+	Name string
+	Url  string
+}
 
 type VideoItem struct {
 	Href,

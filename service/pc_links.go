@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"go_vip_video/dto/pc"
+	"go_vip_video/dto"
 	"go_vip_video/utils"
 	"io/ioutil"
 	"strings"
@@ -18,7 +18,7 @@ type KanLinkResp struct {
 	Msg   string `json:"msg"`
 }
 
-func GetPCLinks(site, id string, cat string) ([]*pc.VideoLink, error) {
+func GetPCLinks(site, id string, cat string) ([]*dto.VideoLink, error) {
 	var url string
 	if cat == "3" {
 		url = fmt.Sprintf("https://www.360kan.com/cover/zongyilistv2?id=%s&site=%s&do=switchsite&isByTime=true", id, site)
@@ -44,8 +44,8 @@ func GetPCLinks(site, id string, cat string) ([]*pc.VideoLink, error) {
 	}
 
 	var (
-		vLinksMap  = map[string]*pc.VideoLink{}
-		videoLinks = make([]*pc.VideoLink, 0)
+		vLinksMap  = map[string]*dto.VideoLink{}
+		videoLinks = make([]*dto.VideoLink, 0)
 	)
 
 	doc.Find("a").Each(func(i int, s *goquery.Selection) {
@@ -56,7 +56,7 @@ func GetPCLinks(site, id string, cat string) ([]*pc.VideoLink, error) {
 		href, _ := s.Attr("href")
 		num = strings.ReplaceAll(strings.ReplaceAll(num, `\"`, ""), `\`, "")
 		href = strings.ReplaceAll(strings.ReplaceAll(href, `\"`, ""), `\`, "")
-		tmp := &pc.VideoLink{
+		tmp := &dto.VideoLink{
 			Href: href,
 			Num:  num,
 		}

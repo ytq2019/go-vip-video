@@ -1,13 +1,14 @@
-package service
+package test
 
 import (
 	"fmt"
+	"go_vip_video/service"
 	"testing"
 )
 
 func TestNewDetailDocument(t *testing.T) {
 
-	got, err := NewDetailDocument("tv", "RbhvcH7lSmHrMH")
+	got, err := service.NewDetailDocument("tv", "RbhvcH7lSmHrMH")
 	if err != nil {
 		t.Fail()
 

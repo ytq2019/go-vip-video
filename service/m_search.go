@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"go_vip_video/dto/pc"
+	"go_vip_video/dto"
 	"go_vip_video/utils"
 	"strings"
 )
@@ -28,8 +28,8 @@ func NewSearchDocument(key string) (*searchDocument, error) {
 	return &searchDocument{Key: key, Doc: doc}, nil
 }
 
-func (s *searchDocument) SearchResult() []*pc.VideoItem {
-	videoItems := make([]*pc.VideoItem, 0)
+func (s *searchDocument) SearchResult() []*dto.VideoItem {
+	videoItems := make([]*dto.VideoItem, 0)
 
 	//search-item-info
 	s.Doc.Find(".box").Each(func(i int, s *goquery.Selection) {
@@ -39,7 +39,7 @@ func (s *searchDocument) SearchResult() []*pc.VideoItem {
 		href, _ := s.Find("h3 a").Attr("href")
 		title := s.Find("h3").Text()
 		cover, _ := s.Find(".img img").Attr("src")
-		tmp := &pc.VideoItem{
+		tmp := &dto.VideoItem{
 			Href:  href,
 			Cover: cover,
 			Title: strings.ReplaceAll(strings.ReplaceAll(title, "\n", ""), "\r", ""),

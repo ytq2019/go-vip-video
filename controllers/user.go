@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
+	beego "github.com/beego/beego/v2/server/web"
 	"github.com/jinzhu/gorm"
 	"go_vip_video/common"
 	"go_vip_video/models"

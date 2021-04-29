@@ -2,14 +2,14 @@ package routers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
+	beego "github.com/beego/beego/v2/server/web"
+	"github.com/beego/beego/v2/server/web/context"
 	"go_vip_video/controllers"
 )
 
 func init() {
 	beego.InsertFilter("/user/*", beego.BeforeRouter, filterFunc)
-	//beego.InsertFilter("/detail/*", beego.BeforeRouter, filterFunc)
+	beego.InsertFilter("/detail/*", beego.BeforeRouter, filterFunc)
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/listData", &controllers.ListController{}, "get:ListData")

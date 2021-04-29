@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
+	beego "github.com/beego/beego/v2/server/web"
 	"github.com/patrickmn/go-cache"
 	"github.com/prometheus/common/log"
 	"go_vip_video/common"
@@ -34,18 +34,18 @@ type DetailController struct {
 }
 
 //id+cat+站点+剧集  可以定位到具体url
-func (c *DetailController) init() {
+func (c *DetailController) Prepare() {
 	//获取用户openid
-	//uid := c.GetSession("uid").(int64)
-	//log.Infof("获取到的uid为:%d", uid)
-	//user := models.User{ID: uid}
-	//if err := user.LoadById(models.GlobalORMDB); err != nil {
-	//	panic(err)
-	//}
-	//c.openId = user.OpenId
-	//c.uid = user.ID
-
-	c.jxApis = parseJxApi(beego.AppConfig.String("jxapi"))
+	uid := c.GetSession("uid").(int64)
+	log.Infof("获取到的uid为:%d", uid)
+	user := models.User{ID: uid}
+	if err := user.LoadById(models.GlobalORMDB); err != nil {
+		panic(err)
+	}
+	c.openId = user.OpenId
+	c.uid = user.ID
+	jxApi, _ := beego.AppConfig.String("jxapi")
+	c.jxApis = parseJxApi(jxApi)
 	//请求参数
 	c.vId = strings.ReplaceAll(c.Ctx.Input.Param(":id"), ".html", "")
 	c.cat = c.Ctx.Input.Param(":cat")
@@ -80,7 +80,6 @@ func (c *DetailController) init() {
 	c.remoteAddr = c.Ctx.Request.RemoteAddr
 }
 func (c *DetailController) Get() {
-	c.init()
 	c.insert()
 	c.Data["Detail"] = c.detail
 	c.Data["Id"] = c.vId

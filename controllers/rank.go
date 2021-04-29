@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
+	beego "github.com/beego/beego/v2/server/web"
 	"github.com/patrickmn/go-cache"
 	"go_vip_video/common"
 	"go_vip_video/service"

@@ -2,8 +2,8 @@ package routers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
+	beego "github.com/beego/beego/v2/adapter"
+	"github.com/beego/beego/v2/adapter/context"
 	"go_vip_video/controllers"
 )
 

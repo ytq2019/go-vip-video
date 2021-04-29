@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
+	beego "github.com/beego/beego/v2/adapter"
 	"github.com/prometheus/common/log"
 	"github.com/silenceper/wechat/v2/officialaccount/message"
 	"go_vip_video/common"

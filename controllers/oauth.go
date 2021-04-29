@@ -1,6 +1,6 @@
 package controllers
 
-import "github.com/astaxie/beego"
+import beego "github.com/beego/beego/v2/adapter"
 
 type OauthController struct {
 	beego.Controller

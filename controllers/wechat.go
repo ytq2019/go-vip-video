@@ -55,15 +55,16 @@ func searchVideo(msg string) (string, error) {
 		return res, err
 	}
 	vData := document.SearchResult()
+	domain := beego.AppConfig.String("domain")
 	for i, v := range vData {
-		res += fmt.Sprintf(`👉 <a href="http://new.qiandao.name/detail%s">%s</a>`, v.Href, v.Title)
+		res += fmt.Sprintf(`👉 <a href="%s/detail%s">%s</a>`, domain, v.Href, v.Title)
 		res += "\r\n"
 		if i > 6 {
 			break
 		}
 	}
 	if res == "" {
-		res = `未找到该影片,有片源会在第一时间添加至<a href="http://new.qiandao.name">在线影院</a>哦~~`
+		res = fmt.Sprintf(`未找到该影片,有片源会在第一时间添加至<a href="%s">在线影院</a>哦~~`, domain)
 	} else {
 		res += "更多视频请在网页内搜索\r\n"
 		res += "请关注我们公众号：YSZY669"

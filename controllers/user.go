@@ -15,9 +15,10 @@ type UserController struct {
 }
 
 func (c *UserController) Oauth() {
+	domain := beego.AppConfig.String("domain")
 	toUrl := c.GetString("toUrl", "/user")
-	redirectUrl := fmt.Sprintf(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcb331d5bde931fd0&redirect_uri=http://new.yingtejia.cn/login&response_type=code&scope=snsapi_userinfo&state=%s#wechat_redirect`, toUrl)
-	c.Ctx.Redirect(301, redirectUrl)
+	redirectUrl := fmt.Sprintf(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcb331d5bde931fd0&redirect_uri=%s/login&response_type=code&scope=snsapi_userinfo&state=%s#wechat_redirect`, domain, toUrl)
+	c.Ctx.Redirect(302, redirectUrl)
 }
 
 func (c *UserController) Login() {
@@ -25,7 +26,7 @@ func (c *UserController) Login() {
 	state := c.GetString("state")
 	//如果已经登录过了
 	if uid := c.GetSession("uid"); uid != nil {
-		c.Ctx.Redirect(301, state)
+		c.Ctx.Redirect(302, state)
 	}
 
 	wa := common.WechatAccount

@@ -33,14 +33,14 @@ func (c *ListController) ListData() {
 	}
 
 	ca := common.GoCache
-	rank := "rankhot"
+	rank := c.GetString("rank", "rankhot")
 	key := fmt.Sprintf("index:%s::rank:%s::num:%d", t, rank, num)
 
 	var found bool
 	switch t {
 	case "1":
 		if vl, found = ca.Get(key); !found {
-			vl, err = service.GetPCList("dianying", "rankhot", num)
+			vl, err = service.GetPCList("dianying", rank, num)
 			if err != nil {
 				panic(err)
 			}
@@ -48,7 +48,7 @@ func (c *ListController) ListData() {
 		}
 	case "2":
 		if vl, found = ca.Get(key); !found {
-			vl, err = service.GetPCList("dianshi", "rankhot", num)
+			vl, err = service.GetPCList("dianshi", rank, num)
 			if err != nil {
 				panic(err)
 			}
@@ -56,7 +56,7 @@ func (c *ListController) ListData() {
 		}
 	case "3":
 		if vl, found = ca.Get(key); !found {
-			vl, err = service.GetPCList("zongyi", "rankhot", num)
+			vl, err = service.GetPCList("zongyi", rank, num)
 			if err != nil {
 				panic(err)
 			}
@@ -64,7 +64,7 @@ func (c *ListController) ListData() {
 		}
 	case "4":
 		if vl, found = ca.Get(key); !found {
-			vl, err = service.GetPCList("dongman", "rankhot", num)
+			vl, err = service.GetPCList("dongman", rank, num)
 			if err != nil {
 				panic(err)
 			}
@@ -76,8 +76,10 @@ func (c *ListController) ListData() {
 
 func (c *ListController) List() {
 	cat := c.GetString("cat", "1")
+	rankHot := c.GetString("rank", "rankhot")
 
 	c.Data["Cat"] = cat
+	c.Data["Rank"] = rankHot
 	c.TplName = "list.tpl"
 }
 

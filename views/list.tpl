@@ -66,15 +66,23 @@
 <section class="tuijian_box">
     <div class="bgfff shaixuan clearfix">
         <div class="fl leimu_zui">
-            <a class="on"
-               href="/">最近热映</a>
-
-
-            <a href="/">最受好评</a>
+            {{if eq .Rank "rankhot"}}
+                <a class="on" href="/list?cat={{.Cat}}&rank=rankhot">最近热映</a>
+            {{else}}
+                <a href="/list?cat={{.Cat}}&rank=rankhot">最近热映</a>
+            {{end}}
+            {{if eq .Rank "rankpoint"}}
+                <a class="on" href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+            {{else}}
+                <a href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+            {{end}}
 
         </div>
-        <div class="fr shaixuan_2"><a href="javascript:;" id="shaixuan">条件筛选 <em class="shaixuan_icon"><img
-                            src="/static/img/icon_y4_03.jpg"></em></a></div>
+        <div class="fr shaixuan_2">
+            <a href="javascript:;" id="shaixuan">条件筛选 <em class="shaixuan_icon">
+                    <img src="/static/img/icon_y4_03.jpg"></em>
+            </a>
+        </div>
 
     </div>
 
@@ -124,7 +132,7 @@
                 // 拼接HTML
                 $.ajax({
                     type: 'GET',
-                    url: '/listData?cat={{.Cat}}',
+                    url: '/listData?cat={{.Cat}}&rank={{.Rank}}',
                     data: {num: page},
                     dataType: 'html',
                     success: function (data) {
@@ -156,7 +164,7 @@
                 // 拼接HTML
                 $.ajax({
                     type: 'GET',
-                    url: '/listData?cat={{.Cat}}',
+                    url: '/listData?cat={{.Cat}}&rank={{.Rank}}',
                     data: {num: page},
                     dataType: 'html',
                     success: function (data) {

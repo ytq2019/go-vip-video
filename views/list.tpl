@@ -71,10 +71,33 @@
             {{else}}
                 <a href="/list?cat={{.Cat}}&rank=rankhot">最近热映</a>
             {{end}}
-            {{if eq .Rank "rankpoint"}}
-                <a class="on" href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
-            {{else}}
-                <a href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+            {{if eq .Cat "1"}}
+                {{if eq .Rank "rankpoint"}}
+                    <a class="on" href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+                {{else}}
+                    <a href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+                {{end}}
+            {{end}}
+            {{if eq .Cat "2"}}
+                {{if eq .Rank "rankpoint"}}
+                    <a class="on" href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+                {{else}}
+                    <a href="/list?cat={{.Cat}}&rank=rankpoint">最受好评</a>
+                {{end}}
+            {{end}}
+            {{if eq .Cat "3"}}
+                {{if eq .Rank "rankpoint"}}
+                    <a class="on" href="/list?cat={{.Cat}}&rank=createtime">最近上映</a>
+                {{else}}
+                    <a href="/list?cat={{.Cat}}&rank=createtime">最近上映</a>
+                {{end}}
+            {{end}}
+            {{if eq .Cat "4"}}
+                {{if eq .Rank "rankpoint"}}
+                    <a class="on" href="/list?cat={{.Cat}}&rank=createtime">最近上映</a>
+                {{else}}
+                    <a href="/list?cat={{.Cat}}&rank=createtime">最近上映</a>
+                {{end}}
             {{end}}
 
         </div>

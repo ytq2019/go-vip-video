@@ -77,7 +77,7 @@ func (c *DetailController) init() {
 	c.jxID, _ = c.GetInt("jxId", 0)
 	//当前播放地址
 	c.link = c.getLinkBySite()
-	c.remoteAddr = c.Ctx.Request.RemoteAddr
+	c.remoteAddr = c.Ctx.Input.IP()
 }
 func (c *DetailController) Get() {
 	c.init()

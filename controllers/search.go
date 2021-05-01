@@ -14,7 +14,7 @@ func (c *SearchController) Search() {
 	if key == "" {
 		panic("key not empty!")
 	}
-	document, err := service.NewSearchDocument(key)
+	document, err := service.NewPcSearchDocument(key)
 	if err != nil {
 		panic(err)
 	}

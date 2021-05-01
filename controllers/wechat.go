@@ -50,7 +50,7 @@ func (c *WechatController) ServeWechat() {
 //搜片
 func searchVideo(msg string) (string, error) {
 	var res string
-	document, err := service.NewSearchDocument(msg)
+	document, err := service.NewPcSearchDocument(msg)
 	if err != nil {
 		return res, err
 	}

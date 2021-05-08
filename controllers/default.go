@@ -6,6 +6,7 @@ import (
 	"go_vip_video/common"
 	"go_vip_video/dto"
 	"go_vip_video/service"
+	"log"
 )
 
 type MainController struct {
@@ -21,7 +22,7 @@ func (c *MainController) Get() {
 	if !found {
 		dianying, err = service.GetPCList("dianying", "rankhot", 1)
 		if err != nil {
-
+			log.Panic(err)
 		}
 		ca.Set("index::dianying", dianying, cache.DefaultExpiration)
 	}
@@ -30,7 +31,7 @@ func (c *MainController) Get() {
 	if !found {
 		dianshi, err = service.GetPCList("dianshi", "rankhot", 1)
 		if err != nil {
-
+			log.Panic(err)
 		}
 		ca.Set("index::dianshi", dianshi, cache.DefaultExpiration)
 	}
@@ -39,7 +40,7 @@ func (c *MainController) Get() {
 	if !found {
 		zongyi, err = service.GetPCList("zongyi", "rankhot", 1)
 		if err != nil {
-
+			log.Panic(err)
 		}
 		ca.Set("index::zongyi", zongyi, cache.DefaultExpiration)
 	}
@@ -47,7 +48,7 @@ func (c *MainController) Get() {
 	if !found {
 		dongman, err = service.GetPCList("dongman", "rankhot", 1)
 		if err != nil {
-
+			log.Panic(err)
 		}
 		ca.Set("index::dongman", dongman, cache.DefaultExpiration)
 	}

@@ -41,12 +41,12 @@
                 <div id="scroll_begin">
                     <a class="guanzhu"
                        href="/"
-                       style="background: none;color: #000">影片需要加载时间，请耐心等待，播放失败请切换来源</a>
+                       style="background: none;color: #000">影片需要加载时间,请耐心等待,播放失败请切换来源,网站地址随时变更,请关注微信公众号:YSZY669</a>
                 </div>
                 <div id="scroll_end">
                     <a class="guanzhu"
                        href="/"
-                       style="background: none;color: #000">影片需要加载时间，请耐心等待，播放失败请切换来源</a>
+                       style="background: none;color: #000">影片需要加载时间,请耐心等待,播放失败请切换来源,网站地址随时变更,请关注微信公众号:YSZY669</a>
                 </div>
             </div>
             <script type="text/javascript">ScrollImgLeft();</script>

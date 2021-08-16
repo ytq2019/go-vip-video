@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/ytq2019/go-vip-video">
-    <img src="https://user-images.githubusercontent.com/25968335/120111974-8abef880-c139-11eb-99cd-fa928348b198.png" width="200" height="200" alt="go-cqhttp">
+    <img src="https://user-images.githubusercontent.com/25968335/120111974-8abef880-c139-11eb-99cd-fa928348b198.png" width="200" height="200" alt="go-vip-video">
   </a>
 </p>
 
@@ -19,20 +19,17 @@
 - [x] 自动更新
 - [x] 微信搜片
 <p align="center">
-    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236608447747.png" width="400" alt="go-cqhttp">
+    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236608447747.png" width="400" alt="go-vip-video">
 </p>
 
 <p align="center">
-    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236628759633.png
-" width="400" alt="go-cqhttp">
+    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236628759633.png" width="400" alt="go-vip-video">
 </p>
 
 <p align="center">
-    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236665433246.png
-" width="400" alt="go-cqhttp">
+    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236665433246.png" width="400" alt="go-vip-video">
 </p>
 
 <p align="center">
-    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236646836608.png
-" width="400" alt="go-cqhttp">
+    <img src="https://www.yutianqi.net/zb_users/upload/2021/06/202106091623236646836608.png" width="400" alt="go-vip-video">
 </p>
